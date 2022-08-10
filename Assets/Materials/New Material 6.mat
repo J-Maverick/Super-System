@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: New Material 6
   m_Shader: {fileID: 4800000, guid: 5e8965f395eb99646b91be0590bd17e8, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: POI_LIGHT_DATA_ADDITIVE_DIRECTIONAL_ENABLE POI_LIGHT_DATA_ADDITIVE_ENABLE
+    POI_VERTEXLIGHT_ON VIGNETTE_MASKED
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -1660,7 +1661,7 @@ Material:
     - m_start_uvPolar: 0
     - m_start_vertexManipulation: 0
     - m_thirdpartyCategory: 0
-    - shader_is_using_thry_editor: 0
+    - shader_is_using_thry_editor: 69
     - shader_master_label: 0
     m_Colors:
     - _1st_ShadeColor: {r: 1, g: 1, b: 1, a: 1}

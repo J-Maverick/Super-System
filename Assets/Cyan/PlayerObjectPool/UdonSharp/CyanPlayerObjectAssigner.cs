@@ -525,7 +525,7 @@ namespace Cyan.PlayerObjectPool
             _objectPool = GameObject.Find(poolPath).GetComponent<CyanPlayerObjectPool>();
             
             int assignerSize = transform.childCount;
-            int poolSize = _objectPool.poolSize;
+            int poolSize = 34;
             
             // Pool has invalid size, return early without initializing system.
             if (assignerSize > 0 && assignerSize < poolSize)

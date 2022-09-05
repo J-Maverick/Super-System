@@ -115,7 +115,7 @@ namespace Cyan.PlayerObjectPool
         public int GetPoolSize()
         {
             GetPoolUdon().publicVariables.TryGetVariableValue(nameof(CyanPlayerObjectPool.poolSize), out int value);
-            return value;
+            return 34;
         }
         
         public int GetObjectCount()
@@ -126,7 +126,7 @@ namespace Cyan.PlayerObjectPool
         // Update the number of pool objects for this assigner based on the current size of the Object pool.
         public void UpdatePoolSize()
         {
-            UpdatePoolSize(GetPoolSize());
+            UpdatePoolSize(34);
         }
 
         // Delete all children under this Object Assigner.
@@ -167,13 +167,14 @@ namespace Cyan.PlayerObjectPool
             int size = GetPoolSize();
             if (GetObjectCount() != size)
             {
-                UpdatePoolSize(size);
+                UpdatePoolSize(34);
             }
         }
         
         // Given a size, spawn new pooled objects or delete old objects until this object assigner has the appropriate size.
         public void UpdatePoolSize(int size)
         {
+            size = 34;
             // No pool object prefab to update size.
             if (poolObjectPrefab == null)
             {

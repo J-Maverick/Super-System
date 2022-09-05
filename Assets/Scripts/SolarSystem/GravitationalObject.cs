@@ -7,10 +7,12 @@ using VRC.Udon.Common;
 [UdonBehaviourSyncMode(BehaviourSyncMode.Manual)]
 public class GravitationalObject : UdonSharpBehaviour
 {
+    #region Class Properties
     public SimulationSpace simulationSpace;
     public float mass = 1f;
     public Vector3 previousFramePosition = Vector3.zero;
     [UdonSynced] public Vector3 position = Vector3.zero;
+    [UdonSynced] public Quaternion rotation = Quaternion.identity;
     public Vector3 acceleration = Vector3.zero;
     [UdonSynced] public Vector3 velocity = Vector3.zero;
     [UdonSynced] public Vector3 angularVelocity = Vector3.zero;
@@ -41,6 +43,8 @@ public class GravitationalObject : UdonSharpBehaviour
     private bool instantiated = false;
 
     [UdonSynced] public bool physicsActive = true;
+    [UdonSynced] public bool planetIsKill = false;
+    public bool planetCollided = false;
 
     public bool follower = false;
     public GravitationalObject followerTarget = null;
@@ -56,12 +60,25 @@ public class GravitationalObject : UdonSharpBehaviour
     private float warmUpTime = .1f;
     private float warmUpTimer = 0f;
 
+    private VRCPlayerApi localPlayer;
+    public bool planetWalking = false;
+    private Vector3 lastPosition;
+    private Vector3 planetWalkPosition;
+    private Quaternion planetWalkRotation;
+
     public bool spewDataOnPickup = false;
     public bool spewDataOnDrop = false;
 
     public bool autoSync = false;
 
     private Animator animator;
+
+    public Matrix4x4 preTransformWorldToLocalMatrix;
+
+    private bool firstRespawn = false;
+    #endregion
+
+    #region Unity Callbacks
 
     void Start()
     {
@@ -78,6 +95,10 @@ public class GravitationalObject : UdonSharpBehaviour
             initialScale = transform.localScale;
             masterID = Networking.LocalPlayer.playerId;
         }
+
+        localPlayer = Networking.LocalPlayer;
+        lastPosition = localPlayer.GetPosition();
+
         simulationSpace = GetComponentInParent<SimulationSpace>();
         position = transform.localPosition;
         previousFramePosition = position;
@@ -94,6 +115,89 @@ public class GravitationalObject : UdonSharpBehaviour
             EnableTrail();
         }
     }
+
+    void LateUpdate()
+    {
+        if (Utilities.IsValid(localPlayer))
+        {
+            if (!isOwner && Networking.GetOwner(gameObject) == Networking.LocalPlayer)
+            {
+                isOwner = true;
+            }
+            else isOwner = false;
+
+            if (instantiated && !follower)
+            {
+                if (!physicsActive && isOwner)
+                {
+                    GrabOverride();
+                }
+                UpdatePosition();
+                //SetForceColor();
+            }
+            else if (follower && !warmUp)
+            {
+                if (followerTarget == null)
+                {
+                    Networking.Destroy(gameObject);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    transform.localPosition = followerTarget.position;
+                    transform.localRotation = followerTarget.transform.localRotation;
+                    transform.localScale = followerTarget.transform.localScale;
+
+                    planetIsKill = followerTarget.planetIsKill;
+                    planetCollided = followerTarget.planetCollided;
+
+                    if (simulationSpace.planetWalking && simulationSpace.planetWalkingTarget == this && !planetWalking) Networking.LocalPlayer.Respawn();
+                    else if (simulationSpace.planetWalking && simulationSpace.planetWalkingTarget == this) PlanetWalk();
+                    else if (planetWalking) planetWalking = false;
+                }
+            }
+
+            TestIfGrabbedByOwner();
+
+            autoSync = simulationSpace.autoSync;
+            if (autoSync && syncTimer >= syncTime)
+            {
+                TriggerSync();
+                ResetSync();
+            }
+
+            syncTimer += Time.deltaTime;
+
+            if (warmUp && warmUpTimer > warmUpTime)
+            {
+                warmUp = false;
+            }
+            else if (warmUp) warmUpTimer += Time.deltaTime;
+
+        }
+
+    }
+
+    public override void PostLateUpdate()
+    {
+        if (Utilities.IsValid(localPlayer))
+        {
+            if (follower && !warmUp && simulationSpace.planetWalking && simulationSpace.planetWalkingTarget != this)
+            {
+                FollowPlanetWalkTransform();
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Debug.LogFormat("{0} Destroyed", this.name);
+        simulationSpace.RemoveFromGravitationalObjectList(this);
+    }
+
+    #endregion
+
+    #region VRChat Callbacks
 
     public void CallSerialization()
     {
@@ -127,6 +231,32 @@ public class GravitationalObject : UdonSharpBehaviour
         }
         RequestSerialization();
     }
+
+    public override void OnPreSerialization()
+    {
+        rotation = transform.localRotation;
+    }
+
+    public override void OnDeserialization()
+    {
+        transform.localRotation = rotation;
+    }
+
+    public override void OnPlayerRespawn(VRCPlayerApi player)
+    {
+        if (player.isLocal && simulationSpace.planetWalking && simulationSpace.planetWalkingTarget == this && !firstRespawn)
+        {
+            firstRespawn = true;
+            SetupPlanetWalk();
+            simulationSpace.MovePlatform();
+            Debug.LogFormat("{0} Respawning local player -- setting up planet walk and triggering second respawn.", name);
+            Networking.LocalPlayer.Respawn();
+        }
+        else if (player.isLocal && simulationSpace.planetWalking && simulationSpace.planetWalkingTarget == this && firstRespawn) FinishRespawn();
+    }
+    #endregion
+
+    #region Physics Engine
 
     // TODO: Add radiation and temperature
     public void UpdatePhysics()
@@ -164,6 +294,7 @@ public class GravitationalObject : UdonSharpBehaviour
             EnableTrail();
         }
         physicsActive = true;
+        planetIsKill = false;
         RequestSerialization();
     }
 
@@ -177,61 +308,15 @@ public class GravitationalObject : UdonSharpBehaviour
         RequestSerialization();
     }
 
-    public override void OnPostSerialization(SerializationResult result)
+    public void ResetCollision()
     {
-        base.OnPostSerialization(result);
+
+        Debug.LogFormat("{0}: Resetting collision flag.", name);
+        planetCollided = false;
+        if (followerTarget != null)
+        followerTarget.ResetCollision();
     }
 
-    void LateUpdate()
-    {
-        if (!isOwner && Networking.GetOwner(gameObject) == Networking.LocalPlayer)
-        {
-            isOwner = true;
-        }
-        else isOwner = false;
-
-        if (instantiated && !follower)
-        {
-            if (!physicsActive && isOwner)
-            {
-                GrabOverride();
-            }
-            UpdatePosition();
-            //SetForceColor();
-        }
-        else if (follower)
-        {
-            if (followerTarget == null)
-            {
-                Networking.Destroy(gameObject);
-                Destroy(gameObject);
-            }
-            else
-            {
-                transform.localPosition = followerTarget.position;
-                transform.localRotation = followerTarget.transform.localRotation;
-                transform.localScale = followerTarget.transform.localScale;
-            }
-        }
-
-        TestIfGrabbedByOwner();
-
-        autoSync = simulationSpace.autoSync;
-        if (autoSync && syncTimer >= syncTime)
-        {
-            TriggerSync();
-            ResetSync();
-        }
-        
-        syncTimer += Time.deltaTime;
-
-        if (warmUp && warmUpTimer > warmUpTime)
-        {
-            warmUp = false;
-        }
-        else if (warmUp) warmUpTimer += Time.deltaTime;
-
-    }
 
     private void TestIfGrabbedByOwner()
     {
@@ -352,11 +437,15 @@ public class GravitationalObject : UdonSharpBehaviour
         {
             collisionGravObject.AddMomentum(this);
             killPlanet();
+            collisionGravObject.planetCollided = true;
+            planetCollided = true;
         }
         else if (collisionMomentum.magnitude < planetMomentum.magnitude)
         {
             AddMomentum(collisionGravObject);
             collisionGravObject.killPlanet();
+            collisionGravObject.planetCollided = true;
+            planetCollided = true;
         }
     }
 
@@ -368,7 +457,8 @@ public class GravitationalObject : UdonSharpBehaviour
         transform.localPosition = position;
         DisableTrail();
         physicsActive = false;
-
+        planetIsKill = true;
+        RequestSerialization();
     }
 
     public void EnableTrail()
@@ -419,11 +509,6 @@ public class GravitationalObject : UdonSharpBehaviour
         return (Vector3.one + velocity) * mass;
     }
 
-    private void OnDestroy()
-    {
-        Debug.LogFormat("{0} Destroyed", this.name);
-        simulationSpace.RemoveFromGravitationalObjectList(this);
-    }
 
     private void SpewData()
     {
@@ -514,6 +599,85 @@ public class GravitationalObject : UdonSharpBehaviour
         );
     }
 
-            
 
+    #endregion
+
+    #region Planet Walking
+
+    public void SetPlanetTransformFromWalker()
+    {
+        transform.position = planetWalkPosition;
+        transform.rotation = planetWalkRotation;
+    }
+
+    public void FinishRespawn()
+    {
+        //Vector3 playerPos = localPlayer.GetPosition();
+        //SetupPlanetWalk();
+        lastPosition = simulationSpace.platform.transform.position;
+        localPlayer.SetVelocity(Vector3.zero);
+        firstRespawn = false;
+        Debug.LogFormat("{0} Second respawn -- setting player velocity to zero and ending respawn cycle.", name);
+    }
+
+    public void SetupPlanetWalk()
+    {
+        Debug.LogFormat("{0}: Setting Up Planet Walk", name);
+        planetWalking = true;
+
+        preTransformWorldToLocalMatrix = transform.worldToLocalMatrix;
+        planetWalkPosition = Vector3.zero + simulationSpace.transform.position;
+        planetWalkRotation = Quaternion.identity;
+        SetPlanetTransformFromWalker();
+        
+
+        foreach (Transform child in transform)
+        {
+            if (child.name == "CompassTarget")
+            {
+                simulationSpace.SetPlatformTarget(child);
+
+            }
+        }
+    }
+
+    public void PlanetWalk()
+    {
+        //Debug.LogFormat("{0}: Planet Walking", name);
+        preTransformWorldToLocalMatrix = transform.worldToLocalMatrix;
+        Vector3 playerPos = localPlayer.GetPosition();
+        Vector3 movement = playerPos - lastPosition;
+        if (movement.magnitude < 0.001f)
+        {
+            SetPlanetTransformFromWalker();
+            return;
+        }
+
+        float angle = movement.magnitude * (180f / Mathf.PI) / (playerPos - planetWalkPosition).magnitude;
+
+        Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement).normalized;
+        planetWalkRotation = Quaternion.Euler(rotationAxis * -angle) * planetWalkRotation;
+
+        lastPosition = playerPos;
+
+        playerPos.y = planetWalkPosition.y;
+        planetWalkPosition = playerPos;
+
+        SetPlanetTransformFromWalker();
+    }
+
+    void FollowPlanetWalkTransform()
+    {
+        if (simulationSpace.planetWalkingTarget != null)
+        {
+            Vector3 tempPos = simulationSpace.planetWalkingTarget.preTransformWorldToLocalMatrix.MultiplyPoint(transform.position);
+            Quaternion tempRot = simulationSpace.planetWalkingTarget.preTransformWorldToLocalMatrix.rotation * transform.rotation;
+
+            tempPos = simulationSpace.planetWalkingTarget.transform.localToWorldMatrix.MultiplyPoint(tempPos);
+            tempRot = simulationSpace.planetWalkingTarget.transform.localToWorldMatrix.rotation * tempRot;
+
+            transform.SetPositionAndRotation(tempPos, tempRot);
+        }
+    }
+    #endregion
 }

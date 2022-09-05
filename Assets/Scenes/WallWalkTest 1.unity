@@ -357,7 +357,7 @@ MonoBehaviour:
   station: {fileID: 29619438}
   syncObj: {fileID: 1250212187}
   stationPos: {fileID: 1528198231}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &29619438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
   station: {fileID: 37812277}
   syncObj: {fileID: 1286800350}
   stationPos: {fileID: 190502100}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &37812277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,7 +689,7 @@ MonoBehaviour:
   station: {fileID: 51301507}
   syncObj: {fileID: 2124954567}
   stationPos: {fileID: 41552787}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &51301507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1106,7 +1106,7 @@ MonoBehaviour:
   station: {fileID: 139358729}
   syncObj: {fileID: 32501492}
   stationPos: {fileID: 105199111}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &139358729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1273,7 +1273,7 @@ MonoBehaviour:
   station: {fileID: 185697453}
   syncObj: {fileID: 851752923}
   stationPos: {fileID: 72416982}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &185697453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   station: {fileID: 193534335}
   syncObj: {fileID: 1935753020}
   stationPos: {fileID: 724079741}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &193534335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1591,7 +1591,7 @@ MonoBehaviour:
   station: {fileID: 196342357}
   syncObj: {fileID: 1542364950}
   stationPos: {fileID: 1921120488}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &196342357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   station: {fileID: 196752913}
   syncObj: {fileID: 957151658}
   stationPos: {fileID: 1207692575}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &196752913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,7 +1879,7 @@ MonoBehaviour:
   station: {fileID: 211691218}
   syncObj: {fileID: 1621274774}
   stationPos: {fileID: 69077574}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &211691218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1986,7 +1986,7 @@ MonoBehaviour:
   station: {fileID: 234908845}
   syncObj: {fileID: 1500877805}
   stationPos: {fileID: 333476618}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &234908845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2137,7 +2137,7 @@ MonoBehaviour:
   station: {fileID: 251656528}
   syncObj: {fileID: 1528470257}
   stationPos: {fileID: 375650662}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &251656528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   station: {fileID: 269908223}
   syncObj: {fileID: 2131420794}
   stationPos: {fileID: 5250468}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &269908223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2351,7 +2351,7 @@ MonoBehaviour:
   station: {fileID: 271100599}
   syncObj: {fileID: 385851297}
   stationPos: {fileID: 1132130233}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &271100599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2458,6 +2458,7 @@ MonoBehaviour:
   targetTransform: {fileID: 976971376}
   room: {fileID: 894997847}
   origin: {fileID: 928886529}
+  planet: {fileID: 0}
 --- !u!65 &271819773
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2722,7 +2723,7 @@ MonoBehaviour:
   station: {fileID: 300341508}
   syncObj: {fileID: 127594172}
   stationPos: {fileID: 393854672}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &300341508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2829,7 +2830,7 @@ MonoBehaviour:
   station: {fileID: 309500236}
   syncObj: {fileID: 457843092}
   stationPos: {fileID: 1367859826}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &309500236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3040,7 +3041,7 @@ MonoBehaviour:
   station: {fileID: 348553712}
   syncObj: {fileID: 1284985000}
   stationPos: {fileID: 712053179}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &348553712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3240,7 +3241,7 @@ MonoBehaviour:
   station: {fileID: 368672377}
   syncObj: {fileID: 1161480581}
   stationPos: {fileID: 630625701}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &368672377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3635,7 +3636,7 @@ MonoBehaviour:
   station: {fileID: 435683653}
   syncObj: {fileID: 1702127792}
   stationPos: {fileID: 549654985}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &435683653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3742,7 +3743,7 @@ MonoBehaviour:
   station: {fileID: 451313531}
   syncObj: {fileID: 238358642}
   stationPos: {fileID: 590738672}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &451313531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3997,7 +3998,7 @@ MonoBehaviour:
   station: {fileID: 526287463}
   syncObj: {fileID: 1740359655}
   stationPos: {fileID: 1991683925}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &526287463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4104,7 +4105,7 @@ MonoBehaviour:
   station: {fileID: 526619421}
   syncObj: {fileID: 1099535097}
   stationPos: {fileID: 1863667726}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &526619421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4304,7 +4305,7 @@ MonoBehaviour:
   station: {fileID: 532177199}
   syncObj: {fileID: 2122918925}
   stationPos: {fileID: 1096738241}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &532177199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4411,7 +4412,7 @@ MonoBehaviour:
   station: {fileID: 541910458}
   syncObj: {fileID: 2012501974}
   stationPos: {fileID: 1611091807}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &541910458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4592,7 +4593,7 @@ MonoBehaviour:
   station: {fileID: 563485260}
   syncObj: {fileID: 1386928711}
   stationPos: {fileID: 936336320}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &563485260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4699,7 +4700,7 @@ MonoBehaviour:
   station: {fileID: 565919111}
   syncObj: {fileID: 881612154}
   stationPos: {fileID: 1033405548}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &565919111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4836,7 +4837,7 @@ MonoBehaviour:
   station: {fileID: 588859476}
   syncObj: {fileID: 1290744429}
   stationPos: {fileID: 515811585}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &588859476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4973,7 +4974,7 @@ MonoBehaviour:
   station: {fileID: 596629611}
   syncObj: {fileID: 1929181485}
   stationPos: {fileID: 692052602}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &596629611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5110,7 +5111,7 @@ MonoBehaviour:
   station: {fileID: 612165740}
   syncObj: {fileID: 2116981126}
   stationPos: {fileID: 1917455868}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &612165740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5217,7 +5218,7 @@ MonoBehaviour:
   station: {fileID: 622198666}
   syncObj: {fileID: 683790982}
   stationPos: {fileID: 1221682150}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &622198666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5444,7 +5445,7 @@ MonoBehaviour:
   station: {fileID: 630595492}
   syncObj: {fileID: 900952579}
   stationPos: {fileID: 1156552607}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &630595492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5625,7 +5626,7 @@ MonoBehaviour:
   station: {fileID: 657729534}
   syncObj: {fileID: 314907760}
   stationPos: {fileID: 737818469}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &657729534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5924,7 +5925,7 @@ MonoBehaviour:
   station: {fileID: 705703031}
   syncObj: {fileID: 1720953809}
   stationPos: {fileID: 1324928643}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &705703031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6165,7 +6166,7 @@ MonoBehaviour:
   station: {fileID: 742925010}
   syncObj: {fileID: 92294195}
   stationPos: {fileID: 626328838}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &742925010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6272,7 +6273,7 @@ MonoBehaviour:
   station: {fileID: 746481822}
   syncObj: {fileID: 2140396532}
   stationPos: {fileID: 2449686}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &746481822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6379,7 +6380,7 @@ MonoBehaviour:
   station: {fileID: 748699141}
   syncObj: {fileID: 1812557549}
   stationPos: {fileID: 773288239}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &748699141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6574,7 +6575,7 @@ MonoBehaviour:
   station: {fileID: 759786297}
   syncObj: {fileID: 2119874006}
   stationPos: {fileID: 20527220}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &759786297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6755,7 +6756,7 @@ MonoBehaviour:
   station: {fileID: 791494390}
   syncObj: {fileID: 1212886239}
   stationPos: {fileID: 1948671032}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &791494390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6892,6 +6893,7 @@ MonoBehaviour:
   targetTransform: {fileID: 976971376}
   room: {fileID: 894997847}
   origin: {fileID: 928886529}
+  planet: {fileID: 0}
 --- !u!65 &824432279
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7112,7 +7114,7 @@ MonoBehaviour:
   station: {fileID: 873124697}
   syncObj: {fileID: 1862533646}
   stationPos: {fileID: 1224235427}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &873124697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7645,6 +7647,9 @@ MonoBehaviour:
   playerStation: {fileID: 0}
   pool: {fileID: 898015710}
   playerAssignedPoolObject: {fileID: 0}
+  currentRoom: {fileID: 0}
+  homeRoom: {fileID: 0}
+  stationAssigned: 0
 --- !u!114 &928886530
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -7757,7 +7762,7 @@ MonoBehaviour:
   station: {fileID: 930793831}
   syncObj: {fileID: 1814824232}
   stationPos: {fileID: 10405951}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &930793831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7864,7 +7869,7 @@ MonoBehaviour:
   station: {fileID: 935861109}
   syncObj: {fileID: 1683154875}
   stationPos: {fileID: 664581504}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &935861109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8045,7 +8050,7 @@ MonoBehaviour:
   station: {fileID: 965409634}
   syncObj: {fileID: 2002063629}
   stationPos: {fileID: 1767233626}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &965409634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8152,7 +8157,7 @@ MonoBehaviour:
   station: {fileID: 968763833}
   syncObj: {fileID: 1458890316}
   stationPos: {fileID: 1384924951}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &968763833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8259,7 +8264,7 @@ MonoBehaviour:
   station: {fileID: 969185071}
   syncObj: {fileID: 474946335}
   stationPos: {fileID: 1886801715}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &969185071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8366,7 +8371,7 @@ MonoBehaviour:
   station: {fileID: 974787628}
   syncObj: {fileID: 1559121410}
   stationPos: {fileID: 275941043}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &974787628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8822,7 +8827,7 @@ MonoBehaviour:
   station: {fileID: 1000810925}
   syncObj: {fileID: 900190035}
   stationPos: {fileID: 1642362680}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1000810925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8929,7 +8934,7 @@ MonoBehaviour:
   station: {fileID: 1016587353}
   syncObj: {fileID: 101329806}
   stationPos: {fileID: 197515578}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1016587353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9066,7 +9071,7 @@ MonoBehaviour:
   station: {fileID: 1060581359}
   syncObj: {fileID: 2020309388}
   stationPos: {fileID: 513400398}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1060581359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9370,7 +9375,7 @@ MonoBehaviour:
   station: {fileID: 1132270475}
   syncObj: {fileID: 1654712507}
   stationPos: {fileID: 186972643}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1132270475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9477,7 +9482,7 @@ MonoBehaviour:
   station: {fileID: 1137867028}
   syncObj: {fileID: 1726536608}
   stationPos: {fileID: 580981859}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1137867028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9658,7 +9663,7 @@ MonoBehaviour:
   station: {fileID: 1171659090}
   syncObj: {fileID: 1375404649}
   stationPos: {fileID: 1783314551}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1171659090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9765,7 +9770,7 @@ MonoBehaviour:
   station: {fileID: 1173755848}
   syncObj: {fileID: 186988787}
   stationPos: {fileID: 623936149}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1173755848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10050,7 +10055,7 @@ MonoBehaviour:
   station: {fileID: 1246474131}
   syncObj: {fileID: 1302896776}
   stationPos: {fileID: 2102987522}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1246474131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10201,7 +10206,7 @@ MonoBehaviour:
   station: {fileID: 1253439606}
   syncObj: {fileID: 675360940}
   stationPos: {fileID: 1750545092}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1253439606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10308,7 +10313,7 @@ MonoBehaviour:
   station: {fileID: 1259672213}
   syncObj: {fileID: 2005511720}
   stationPos: {fileID: 1583760145}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1259672213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10621,7 +10626,7 @@ MonoBehaviour:
   station: {fileID: 1322041070}
   syncObj: {fileID: 2131467357}
   stationPos: {fileID: 916856366}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1322041070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10788,7 +10793,7 @@ MonoBehaviour:
   station: {fileID: 1340925832}
   syncObj: {fileID: 634969603}
   stationPos: {fileID: 630334830}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1340925832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10895,7 +10900,7 @@ MonoBehaviour:
   station: {fileID: 1343468585}
   syncObj: {fileID: 543315417}
   stationPos: {fileID: 1400436575}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1343468585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11328,7 +11333,7 @@ MonoBehaviour:
   station: {fileID: 1448397579}
   syncObj: {fileID: 751936168}
   stationPos: {fileID: 326519129}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1448397579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11523,7 +11528,7 @@ MonoBehaviour:
   station: {fileID: 1463396353}
   syncObj: {fileID: 1347853470}
   stationPos: {fileID: 1793135770}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1463396353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11660,7 +11665,7 @@ MonoBehaviour:
   station: {fileID: 1476805302}
   syncObj: {fileID: 734636819}
   stationPos: {fileID: 1714186526}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1476805302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11767,7 +11772,7 @@ MonoBehaviour:
   station: {fileID: 1492797029}
   syncObj: {fileID: 1778586099}
   stationPos: {fileID: 899167780}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1492797029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11918,7 +11923,7 @@ MonoBehaviour:
   station: {fileID: 1516853129}
   syncObj: {fileID: 2030773031}
   stationPos: {fileID: 1465810197}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1516853129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12099,7 +12104,7 @@ MonoBehaviour:
   station: {fileID: 1535660172}
   syncObj: {fileID: 372770823}
   stationPos: {fileID: 915124994}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1535660172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12250,7 +12255,7 @@ MonoBehaviour:
   station: {fileID: 1551359172}
   syncObj: {fileID: 753509702}
   stationPos: {fileID: 1420681771}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1551359172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12401,6 +12406,7 @@ MonoBehaviour:
   targetTransform: {fileID: 9046709}
   room: {fileID: 889029550}
   origin: {fileID: 928886529}
+  planet: {fileID: 0}
 --- !u!65 &1574064977
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12547,7 +12553,7 @@ MonoBehaviour:
   station: {fileID: 1583019760}
   syncObj: {fileID: 990236021}
   stationPos: {fileID: 792861111}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1583019760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12684,7 +12690,7 @@ MonoBehaviour:
   station: {fileID: 1605045134}
   syncObj: {fileID: 124216845}
   stationPos: {fileID: 1301647345}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1605045134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12957,7 +12963,7 @@ MonoBehaviour:
   station: {fileID: 1639981404}
   syncObj: {fileID: 1809151308}
   stationPos: {fileID: 1330889187}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1639981404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13064,7 +13070,7 @@ MonoBehaviour:
   station: {fileID: 1642277707}
   syncObj: {fileID: 424741722}
   stationPos: {fileID: 1848153805}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1642277707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13201,7 +13207,7 @@ MonoBehaviour:
   station: {fileID: 1642544456}
   syncObj: {fileID: 1462375525}
   stationPos: {fileID: 2137305280}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1642544456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13352,7 +13358,7 @@ MonoBehaviour:
   station: {fileID: 1676335791}
   syncObj: {fileID: 1381948493}
   stationPos: {fileID: 156521850}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1676335791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13783,7 +13789,7 @@ MonoBehaviour:
   station: {fileID: 1766351143}
   syncObj: {fileID: 777048415}
   stationPos: {fileID: 624469488}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1766351143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13964,7 +13970,7 @@ MonoBehaviour:
   station: {fileID: 1782733804}
   syncObj: {fileID: 1718975179}
   stationPos: {fileID: 888488254}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1782733804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14101,7 +14107,7 @@ MonoBehaviour:
   station: {fileID: 1791962672}
   syncObj: {fileID: 1805198875}
   stationPos: {fileID: 1422941106}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1791962672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14652,7 +14658,7 @@ MonoBehaviour:
   station: {fileID: 1887822310}
   syncObj: {fileID: 291249652}
   stationPos: {fileID: 875774627}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1887822310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14759,7 +14765,7 @@ MonoBehaviour:
   station: {fileID: 1902169017}
   syncObj: {fileID: 71149792}
   stationPos: {fileID: 1993176656}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1902169017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14926,7 +14932,7 @@ MonoBehaviour:
   station: {fileID: 1918559786}
   syncObj: {fileID: 1812338983}
   stationPos: {fileID: 1849374475}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1918559786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15181,7 +15187,7 @@ MonoBehaviour:
   station: {fileID: 1989048606}
   syncObj: {fileID: 691400085}
   stationPos: {fileID: 605300488}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &1989048606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15378,7 +15384,7 @@ MonoBehaviour:
   station: {fileID: 2000487341}
   syncObj: {fileID: 32107080}
   stationPos: {fileID: 2043088267}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &2000487341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15735,7 +15741,7 @@ MonoBehaviour:
   station: {fileID: 2066538259}
   syncObj: {fileID: 208023993}
   stationPos: {fileID: 1875891017}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &2066538259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15935,7 +15941,7 @@ MonoBehaviour:
   station: {fileID: 2099172552}
   syncObj: {fileID: 2125896434}
   stationPos: {fileID: 173626201}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &2099172552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16072,7 +16078,7 @@ MonoBehaviour:
   station: {fileID: 2104193067}
   syncObj: {fileID: 273719058}
   stationPos: {fileID: 1992307890}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &2104193067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16399,7 +16405,7 @@ MonoBehaviour:
   station: {fileID: 2130076902}
   syncObj: {fileID: 1205594425}
   stationPos: {fileID: 833061651}
-  origin: {fileID: 928886528}
+  origin: {fileID: 0}
 --- !u!114 &2130076902
 MonoBehaviour:
   m_ObjectHideFlags: 0

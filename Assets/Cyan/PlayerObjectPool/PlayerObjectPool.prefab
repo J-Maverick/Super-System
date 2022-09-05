@@ -81,7 +81,7 @@ MonoBehaviour:
       Entry: 8
       Data: 
   _udonSharpBackingUdonBehaviour: {fileID: 9026171130748990446}
-  poolSize: 82
+  poolSize: 34
   printDebugLogs: 0
   playerIdInput: 0
   playerCountOutput: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 1
-  _syncMethod: 0
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: 3fd3f1e8e4c273e4d8f83b1f1196e2ec,
     type: 2}
   programSource: {fileID: 11400000, guid: a57243225bd6a94408379a754932c5b6, type: 2}

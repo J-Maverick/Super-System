@@ -125,6 +125,8 @@ MonoBehaviour:
   syncObj: {fileID: 8112030319545992341}
   stationPos: {fileID: 8112030321050805490}
   origin: {fileID: 0}
+  currentRoom: {fileID: 0}
+  currentRoomID: 1
 --- !u!114 &8112030319868305090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +146,7 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 2
+  _syncMethod: 3
   serializedProgramAsset: {fileID: 11400000, guid: bab8042c1c96dd74fb2a0e195c2848d9,
     type: 2}
   programSource: {fileID: 11400000, guid: 4559079d77a6d514a996faebb6652a67, type: 2}

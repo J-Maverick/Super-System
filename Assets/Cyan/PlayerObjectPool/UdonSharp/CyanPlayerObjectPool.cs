@@ -73,7 +73,7 @@ namespace Cyan.PlayerObjectPool
         /// assigners should also have this many pool objects to ensure each player gets an object.
         /// </summary>
         [Tooltip("How large is the object pool? This number should be equal to (world player cap * 2 + 2). All object assigners should also have this many pool objects to ensure each player gets an object.")]
-        public int poolSize = 82;
+        public int poolSize = 34;
         
         /// <summary>
         /// Setting this to true will print debug logging information about the status of the pool.

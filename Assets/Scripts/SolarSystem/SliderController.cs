@@ -22,7 +22,10 @@ public class SliderController : UdonSharpBehaviour
     void Start()
     {
         deserializing = false;
-        defaultValue = slider.value;
+        if (slider != null)
+        {
+            defaultValue = slider.value;
+        }
     }
 
     public override void OnDeserialization()
@@ -50,9 +53,14 @@ public class SliderController : UdonSharpBehaviour
 
     public void UpdateSimulationTimeStep()
     {
+        // Get ownership of this object and the object you want the slider to affect
         GetOwnership(gameObject);
         GetOwnership(simulationSpaceTarget.gameObject);
+
+        // Do whatever you want to do with the object that you are affecting with slider
         simulationSpaceTarget.timeStep = slider.value;
+
+        // Sync the networked value
         RequestSerialization();
     }
 

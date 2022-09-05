@@ -44,6 +44,16 @@ public class SimulationSpace : UdonSharpBehaviour
     private float warmUpTime = 4.75f;
     private bool warmUp = true;
 
+    public bool planetWalking = false;
+    public GravitationalObject planetWalkingTarget = null;
+
+    public Transform platform = null;
+    public Transform platformLocationTarget;
+
+    public bool planetTransition = false;
+
+    public Origin origin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +78,29 @@ public class SimulationSpace : UdonSharpBehaviour
     public void CallSerialization()
     {
         RequestSerialization();
+    }
+
+    public void EnablePlanetWalk(GravitationalObject gravitationalObject)
+    {
+        planetWalkingTarget = gravitationalObject;
+        planetTransition = true;
+    }
+
+    public void DisablePlanetWalk()
+    {
+        planetWalkingTarget = null;
+        planetWalking = false;
+    }
+
+    public void SetPlatformTarget(Transform targetTransform)
+    { 
+        platformLocationTarget = targetTransform;
+    }
+
+    public void SetPlanetWalkTarget(GravitationalObject gravitationalObject)
+    {
+        planetWalkingTarget = gravitationalObject;
+        origin._EnterRoom(gravitationalObject.transform);
     }
 
     //IEnumerator RunPhysics()
@@ -118,7 +151,7 @@ public class SimulationSpace : UdonSharpBehaviour
         //    physicsRunning = true;
         //    StartCoroutine(RunPhysics());
         //}
-
+        
         fixedDeltaTime = 1f / nSimsPerSecond;
 
         logTimer += Time.deltaTime;
@@ -126,9 +159,9 @@ public class SimulationSpace : UdonSharpBehaviour
         {
             float tS = 1000;
             string timeUnits = "ms";
-            Debug.LogFormat("{1} sim steps run in {2:0.000}{0} | average sim time: {3:0.000}{0} | distance vector calculation time: {4:0.000}{0} | force vector calculation time {5:0.000}{0} | total vector calculation time {6:0.000}{0} | vertex color calculation time {7:0.000}{0}",
-                timeUnits, nSteps, totalSimTime * tS, (totalSimTime / nSteps) * tS, timeSpentCalculatingDistanceVectors * tS,
-                timeSpentCalculatingForceVectors * tS, (timeSpentCalculatingDistanceVectors + timeSpentCalculatingForceVectors) * tS, timeSpentCalculatingVertexColors * tS);
+            //Debug.LogFormat("{1} sim steps run in {2:0.000}{0} | average sim time: {3:0.000}{0} | distance vector calculation time: {4:0.000}{0} | force vector calculation time {5:0.000}{0} | total vector calculation time {6:0.000}{0} | vertex color calculation time {7:0.000}{0}",
+            //    timeUnits, nSteps, totalSimTime * tS, (totalSimTime / nSteps) * tS, timeSpentCalculatingDistanceVectors * tS,
+            //    timeSpentCalculatingForceVectors * tS, (timeSpentCalculatingDistanceVectors + timeSpentCalculatingForceVectors) * tS, timeSpentCalculatingVertexColors * tS);
 
             nSteps = 0;
             totalSimTime = 0f;
@@ -142,6 +175,39 @@ public class SimulationSpace : UdonSharpBehaviour
             Sync();
         }
         else if (warmUp) warmUpTimer += Time.deltaTime;
+    }
+
+    public override void PostLateUpdate()
+    {
+        if (planetTransition)
+        {
+            Networking.LocalPlayer.Respawn();
+            planetTransition = false;
+        }
+
+
+        if (platform != null && planetWalkingTarget != null)
+        {
+            if (planetWalkingTarget.planetIsKill)
+            {
+                EnablePlanetWalk(sun);
+                sun.SetupPlanetWalk();
+            }
+            platform.SetPositionAndRotation(platformLocationTarget.position, platformLocationTarget.rotation);
+            if (planetWalkingTarget != null && planetWalkingTarget.planetCollided)
+            {
+                Debug.LogFormat("{0} Collided, respawning local player.", planetWalkingTarget.name);
+                platform.SetPositionAndRotation(platformLocationTarget.position, platformLocationTarget.rotation);
+                Networking.LocalPlayer.Respawn();
+                planetWalkingTarget.ResetCollision();
+            }
+        }
+
+    }
+
+    public void MovePlatform()
+    {
+        platform.SetPositionAndRotation(platformLocationTarget.position, platformLocationTarget.rotation);
     }
 
     private void FixedUpdate()

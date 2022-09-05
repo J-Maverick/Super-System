@@ -38,7 +38,7 @@ namespace Cyan.PlayerObjectPool
         {
             _instance = (CyanPlayerObjectPool) target;
             _udon = UdonSharpEditorUtility.GetBackingUdonBehaviour(_instance);
-            _poolSize = _instance.poolSize;
+            _poolSize = 34;
             
             _sizeProp = serializedObject.FindProperty(nameof(CyanPlayerObjectPool.poolSize));
             _debugProp = serializedObject.FindProperty(nameof(CyanPlayerObjectPool.printDebugLogs));
@@ -151,13 +151,13 @@ namespace Cyan.PlayerObjectPool
         private void UpdateHelpers(List<CyanPoolSetupHelper> helpers)
         {
             // If the size has changed, notify all helpers to update the spawned number of pool objects.
-            int newSize = _sizeProp.intValue;
+            int newSize = 34;
             if (_poolSize != newSize)
             {
                 _poolSize = newSize;
                 foreach (var helper in helpers)
                 {
-                    helper.UpdatePoolSize(_poolSize);
+                    helper.UpdatePoolSize(34);
                 }
             }
         }

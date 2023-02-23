@@ -150,13 +150,13 @@ public class PlanetFollower : UdonSharpBehaviour
         Vector3 playerPos = localPlayer.GetPosition();
         Vector3 movement = playerPos - lastPosition;
         movement.y = 0f;
-        if (movement.magnitude < 0.001f || movement.magnitude > 1f)
+        if (movement.magnitude < 0.001f)
         {
             SetPlanetTransformFromWalker();
             return;
         }
 
-        Debug.LogFormat("{0}: Movement magnitude: {1}, player position: {2}, last position: {3}, planet walk position: {4}", name, movement.magnitude, playerPos, lastPosition, planetWalkPosition);
+        //Debug.LogFormat("{0}: Movement magnitude: {1}, player position: {2}, last position: {3}, planet walk position: {4}", name, movement.magnitude, playerPos, lastPosition, planetWalkPosition);
         float angle = movement.magnitude * (180f / Mathf.PI) / (playerPos - planetWalkPosition).magnitude;
 
         Vector3 rotationAxis = Vector3.Cross(Vector3.up, movement).normalized;

@@ -8,6 +8,7 @@ public class ButtonController : UdonSharpBehaviour
 {
     private Button button;
     public SimulationSpace target;
+    public SkyboxRotate skybox;
     Vector3 targetInitialPosition;
     Quaternion targetInitialRotation;
 
@@ -32,6 +33,11 @@ public class ButtonController : UdonSharpBehaviour
     public void SyncSolarSystem()
     {
         target.Sync();
+    }
+
+    public void SkyboxRotateToggle()
+    {
+        skybox.ToggleRotation();
     }
 
     public void ToggleAutoSync()

@@ -22,28 +22,34 @@ public class PlanetWalkingHandler : UdonSharpBehaviour
 
     private VRCPlayerApi localPlayer;
 
-    public Transform spawn;
-    public Transform staticSpawn;
-    public Transform targetSpawn;
-
     public void Start()
     {
         localPlayer = Networking.LocalPlayer;
     }
 
-    public void SetStaticSpawn()
+    public void SpewPlayerData()
     {
-        spawn.SetPositionAndRotation(staticSpawn.transform.position, staticSpawn.transform.rotation);
+        if (Time.frameCount % 50 == 0)
+        {
+            Debug.LogFormat("Local Player -- Velocity: {0} | Position: {1}", Networking.LocalPlayer.GetVelocity(), Networking.LocalPlayer.GetPosition());
+        }
     }
 
-    public void SetTargetSpawn()
+    public void RespawnFastGBJIdiotSpaghettiBabies()
     {
-        spawn.SetPositionAndRotation(targetSpawn.transform.position, targetSpawn.transform.rotation);
+        if (Networking.LocalPlayer.GetVelocity().magnitude > 200f)
+        {
+            Debug.LogFormat("Spaghetti GBJ Protection Activated!");
+            Networking.LocalPlayer.SetVelocity(Vector3.zero);
+            Networking.LocalPlayer.Respawn();
+        }
     }
 
     public void Update()
     {
         CheckChildren();
+        SpewPlayerData();
+        RespawnFastGBJIdiotSpaghettiBabies();
     }
 
     public void EnablePlanetWalk(PlanetFollower planetFollower)
@@ -125,11 +131,6 @@ public class PlanetWalkingHandler : UdonSharpBehaviour
             planetFollowerList = planetFollowers;
             nChildren = transform.childCount;
         }
-    }
-
-    public override void OnPlayerRespawn(VRCPlayerApi player)
-    {
-        Debug.LogFormat("Respawning -- spawn location: {0} -- player location: {1}", spawn.transform.position, player.GetPosition());
     }
 
 }

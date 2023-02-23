@@ -56,7 +56,7 @@ public class Origin : UdonSharpBehaviour
     {
         foreach (Room room in rooms)
         {
-            Debug.LogFormat("{0}: Checking room {1} against ID {1}", name, room.roomID, iD);
+            Debug.LogFormat("{0}: Checking room {1} against ID {2}", name, room.roomID, iD);
             if (room.roomID == iD)
             {
                 Debug.LogFormat("{0}: Found room with ID {1} -- returning {2}", name, iD, room);
@@ -79,20 +79,25 @@ public class Origin : UdonSharpBehaviour
     public void OnLocalPlayerAssigned(StationController station)
     {
         stationAssigned = true;
-        Networking.LocalPlayer.Respawn();
         playerStation = station;
+        Initialize();
+        Networking.LocalPlayer.Respawn();
+        Debug.LogFormat("{0}: OnLocalPlayerAssigned Triggered!");
     }
-    
-    public void AddPlayer(VRCPlayerApi player)
+
+    public override void OnPlayerJoined(VRCPlayerApi player)
     {
-        //Debug.LogFormat("{0}: Player joined...", name);
-        Networking.SetOwner(player, objectPool.gameObject);
-        GameObject spawnedStation = objectPool.TryToSpawn();
-        Networking.SetOwner(player, spawnedStation);
-        Networking.SetOwner(player, spawnedStation.GetComponent<StationController>().syncObj.gameObject);
-        if (player.isLocal)
+        if (Networking.LocalPlayer.isMaster)
         {
-            spawnedStation.GetComponent<StationController>().OnOwnershipTransferred(player);
+            GameObject spawnedStation = objectPool.TryToSpawn();
+            Networking.SetOwner(player, spawnedStation);
+            Networking.SetOwner(player, spawnedStation.GetComponent<StationController>().syncObj.gameObject);
+            if (player.isLocal) spawnedStation.GetComponent<StationController>().OnOwnershipTransferred(player);
         }
+    }
+
+    public void Update()
+    {
+        if (playerStation != null && currentRoom != null) Debug.LogFormat("{0}: playerStation: {1} | currentRoom: {2} | stationAssigned: {3}", name, playerStation.name, currentRoom.name, stationAssigned);
     }
 }

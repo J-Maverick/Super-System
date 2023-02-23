@@ -9,7 +9,8 @@ public class GravitationalObject : UdonSharpBehaviour
 {
     #region Class Properties
     public SimulationSpace simulationSpace;
-    public float mass = 1f;
+    [UdonSynced] public float mass = 1f;
+    [UdonSynced] public float scaleFactor = 1f;
     public Vector3 previousFramePosition = Vector3.zero;
     [UdonSynced] public Vector3 position = Vector3.zero;
     [UdonSynced] public Quaternion rotation = Quaternion.identity;
@@ -82,7 +83,6 @@ public class GravitationalObject : UdonSharpBehaviour
 
     void Start()
     {
-
         if (Networking.LocalPlayer.isMaster)
         {
             ownerIsMaster = true;
@@ -235,11 +235,13 @@ public class GravitationalObject : UdonSharpBehaviour
     public override void OnPreSerialization()
     {
         rotation = transform.localRotation;
+        scaleFactor = transform.localScale.x;
     }
 
     public override void OnDeserialization()
     {
         transform.localRotation = rotation;
+        transform.localScale = Vector3.one * scaleFactor;
     }
 
     public override void OnPlayerRespawn(VRCPlayerApi player)
@@ -499,7 +501,7 @@ public class GravitationalObject : UdonSharpBehaviour
         Debug.LogFormat("{0}: Adding momentum from {1} | starting velocity: {2} | starting mass: {3} | colliding velocity: {4} | colliding mass {5}", this.name, collisionObject.name, velocity, mass, collisionObject.velocity, collisionObject.GetMass());
         velocity = (collisionObject.GetMomentum() + GetMomentum()) / (collisionObject.GetMass() + mass);
         mass += collisionObject.GetMass();
-        float scaleFactor = Mathf.Pow(Mathf.Pow(transform.localScale.x, 3f) + Mathf.Pow(collisionObject.transform.localScale.x, 3f), 1f / 3f);
+        scaleFactor = Mathf.Pow(Mathf.Pow(transform.localScale.x, 3f) + Mathf.Pow(collisionObject.transform.localScale.x, 3f), 1f / 3f);
         transform.localScale = Vector3.one * scaleFactor;
         Debug.LogFormat("{0}: Added momentum from {1} | new velocity: {2} | new mass: {3} | new scale: {4} | scale factor: {5}", this.name, collisionObject.name, velocity, mass, transform.localScale, scaleFactor);
     }

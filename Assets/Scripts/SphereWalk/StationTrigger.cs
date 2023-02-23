@@ -11,11 +11,11 @@ public class StationTrigger : UdonSharpBehaviour
 
     public override void OnPlayerTriggerStay(VRCPlayerApi player)
     {
-        if (player.isLocal && !origin.stationAssigned)
-        {
-            Debug.Log("Adding local player to origin");
-            origin.AddPlayer(player);
-        }
+        //if (player.isLocal && player.isMaster && !origin.stationAssigned)
+        //{
+        //    Debug.Log("Adding local player to origin");
+        //    origin.OnPlayerJoined(player);
+        //}
 
         if (origin.stationAssigned && !initialized)
         {

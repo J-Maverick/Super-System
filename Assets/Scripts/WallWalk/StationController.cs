@@ -10,6 +10,7 @@ public class StationController : UdonSharpBehaviour
 {
     public VRCStation station;
     public Transform syncObj;
+    public FixedTransformSync syncTarget;
     public Transform stationPos;
     public Origin origin = null;
     public Transform currentRoom = null;
@@ -23,20 +24,21 @@ public class StationController : UdonSharpBehaviour
     {
         station.PlayerMobility = VRC.SDKBase.VRCStation.Mobility.Mobile;
         VRCPlayerApi player = Networking.LocalPlayer;
-        Networking.SetOwner(player, syncObj.gameObject);
-        Networking.SetOwner(player, gameObject);
+        transform.SetPositionAndRotation(player.GetPosition(), player.GetRotation());
+        stationPos.SetPositionAndRotation(player.GetPosition(), player.GetRotation());
         station.UseStation(player);
         _usingPlayer = player;
 
         currentRoom = room;
         currentRoomID = room.GetComponent<Room>().roomID;
-        RequestSerialization();
 
         if (_usingPlayer.isLocal)
         {
             _LogAtInterval(string.Format("{0}: Updating local position", name));
             _UpdateLocal();
+            RequestSerialization();
         }
+
     }
 
     public void _EnterRoom(Transform room)
@@ -58,12 +60,17 @@ public class StationController : UdonSharpBehaviour
 
     public override void OnOwnershipTransferred(VRCPlayerApi player)
     {
+        _usingPlayer = player;
         if (player.isLocal)
         {
             origin.OnLocalPlayerAssigned(this);
+            RequestSerialization();
         }
-        _usingPlayer = player;
-        RequestSerialization();
+    }
+
+    public override void OnPreSerialization()
+    {
+        if (_usingPlayer != null && _usingPlayer.isLocal) currentRoomID = currentRoom.GetComponent<Room>().roomID;
     }
 
     public override void OnDeserialization()
@@ -97,6 +104,7 @@ public class StationController : UdonSharpBehaviour
     public void Update()
     {
         if (_usingPlayer == null) _usingPlayer = Networking.GetOwner(gameObject);
+        _CheckUsingPlayerIsOwner();
     }
 
     public override void PostLateUpdate()
@@ -144,14 +152,13 @@ public class StationController : UdonSharpBehaviour
         var matrix = currentRoom.worldToLocalMatrix;
         Vector3 systemPos = matrix.MultiplyPoint(pos);
         Quaternion systemRot = matrix.rotation * rot;
-
-        syncObj.SetPositionAndRotation(systemPos, systemRot);
+        syncTarget.SetPositionRotation(systemPos, systemRot);
     }
 
     private void _UpdateRemote()
     {
-        Vector3 pos = syncObj.position;
-        Quaternion rot = syncObj.rotation;
+        Vector3 pos = syncTarget.position;
+        Quaternion rot = syncTarget.rotation;
 
         var matrix = currentRoom.localToWorldMatrix;
 
@@ -175,5 +182,21 @@ public class StationController : UdonSharpBehaviour
         {
             nextTime = Time.realtimeSinceStartup + intervalTime;
         }
+    }
+
+    private void _CheckUsingPlayerIsOwner()
+    {
+        if (Time.realtimeSinceStartup > nextTime && Networking.GetOwner(gameObject) != _usingPlayer)
+        {
+            Networking.SetOwner(_usingPlayer, gameObject);
+            Networking.SetOwner(_usingPlayer, syncObj.gameObject);
+            origin.OnLocalPlayerAssigned(this);
+        }
+        else if (_usingPlayer != null && _usingPlayer.isLocal && origin.playerStation != this) origin.OnLocalPlayerAssigned(this);
+    }
+
+    public override void OnPlayerRespawn(VRCPlayerApi player)
+    {
+        if (player.isLocal) RequestSerialization();
     }
 }

@@ -78,11 +78,14 @@ public class Origin : UdonSharpBehaviour
 
     public void OnLocalPlayerAssigned(StationController station)
     {
-        stationAssigned = true;
-        playerStation = station;
-        Initialize();
-        Networking.LocalPlayer.Respawn();
-        Debug.LogFormat("{0}: OnLocalPlayerAssigned Triggered!");
+        if (playerStation == null || (playerStation.GetUser() != null && !playerStation.GetUser().isLocal))
+        {
+            stationAssigned = true;
+            playerStation = station;
+            Initialize();
+            Networking.LocalPlayer.Respawn();
+            Debug.LogFormat("{0}: OnLocalPlayerAssigned Triggered!");
+        }
     }
 
     public override void OnPlayerJoined(VRCPlayerApi player)
@@ -96,8 +99,12 @@ public class Origin : UdonSharpBehaviour
         }
     }
 
-    public void Update()
+    public void ReturnStation(GameObject station)
     {
-        if (playerStation != null && currentRoom != null) Debug.LogFormat("{0}: playerStation: {1} | currentRoom: {2} | stationAssigned: {3}", name, playerStation.name, currentRoom.name, stationAssigned);
+        if (Networking.GetOwner(objectPool.gameObject).isLocal)
+        {
+            Debug.LogFormat("{0}: Returning {1} to object pool.", name, station.name);
+            objectPool.Return(station);
+        }
     }
 }

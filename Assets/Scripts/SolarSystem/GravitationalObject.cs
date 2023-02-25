@@ -14,6 +14,7 @@ public class GravitationalObject : UdonSharpBehaviour
     public Vector3 previousFramePosition = Vector3.zero;
     [UdonSynced] public Vector3 position = Vector3.zero;
     [UdonSynced] public Quaternion rotation = Quaternion.identity;
+    public Quaternion previousFrameRotation = Quaternion.identity;
     public Vector3 acceleration = Vector3.zero;
     [UdonSynced] public Vector3 velocity = Vector3.zero;
     [UdonSynced] public Vector3 angularVelocity = Vector3.zero;
@@ -24,6 +25,9 @@ public class GravitationalObject : UdonSharpBehaviour
     [UdonSynced] private Vector3 initialScale = Vector3.zero;
     [UdonSynced] private float initialMass;
     [UdonSynced] private int masterID;
+
+    private float maxDistanceStop = 4000f;
+    private float maxDistanceKill = 4500f;
 
     public float syncDistance = 2f;
 
@@ -131,8 +135,10 @@ public class GravitationalObject : UdonSharpBehaviour
                 if (!physicsActive && isOwner)
                 {
                     GrabOverride();
+                    KillIfTooFar();
                 }
                 UpdatePosition();
+                UpdateRotation();
                 //SetForceColor();
             }
             else if (follower && !warmUp)
@@ -156,8 +162,6 @@ public class GravitationalObject : UdonSharpBehaviour
                     else if (planetWalking) planetWalking = false;
                 }
             }
-
-            TestIfGrabbedByOwner();
 
             autoSync = simulationSpace.autoSync;
             if (autoSync && syncTimer >= syncTime)
@@ -229,6 +233,7 @@ public class GravitationalObject : UdonSharpBehaviour
         {
             SpewData();
         }
+        simulationSpace.Sync();
         RequestSerialization();
     }
 
@@ -240,8 +245,11 @@ public class GravitationalObject : UdonSharpBehaviour
 
     public override void OnDeserialization()
     {
-        transform.localRotation = rotation;
-        transform.localScale = Vector3.one * scaleFactor;
+        if (!localPlayer.IsOwner(gameObject))
+        {
+            transform.localRotation = rotation;
+            transform.localScale = Vector3.one * scaleFactor;
+        }
     }
 
     public override void OnPlayerRespawn(VRCPlayerApi player)
@@ -272,9 +280,9 @@ public class GravitationalObject : UdonSharpBehaviour
                     SetGravitationalForce();
                     SetAcceleration();
                     SetVelocity();
+                    SetRotation();
                 }
                 SetPosition();
-                SetRotation();
             }
             if (!hasRunPhysics)
             {
@@ -334,6 +342,7 @@ public class GravitationalObject : UdonSharpBehaviour
         acceleration = Vector3.zero;
         gravitationalForce = Vector3.zero;
         position = transform.localPosition;
+        angularVelocity = (transform.localRotation.eulerAngles - previousFrameRotation.eulerAngles) / Time.deltaTime;
         RequestSerialization();
     }
 
@@ -362,6 +371,11 @@ public class GravitationalObject : UdonSharpBehaviour
         previousFramePosition = transform.localPosition;
     }
 
+    public void UpdateRotation()
+    {
+        previousFrameRotation = transform.localRotation;
+    }
+
     // TODO: Add function to set vertex color based on temperature rather than force applied --- this is gonna be rad
     private void SetForceColor()
     {
@@ -381,7 +395,6 @@ public class GravitationalObject : UdonSharpBehaviour
     private void SetRotation()
     {
         Quaternion rot = transform.localRotation;
-
         transform.localRotation = rot * Quaternion.Euler(angularVelocity * simulationSpace.timeStep);
     }
 
@@ -412,12 +425,30 @@ public class GravitationalObject : UdonSharpBehaviour
                     float t3 = Time.realtimeSinceStartup;
                     simulationSpace.timeSpentCalculatingForceVectors += t3 - t2;
                 }
+                if (gravitationalObject.name == "Sun" && distanceVector.magnitude > maxDistanceStop)
+                {
+                    velocity = Vector3.zero;
+                    acceleration = Vector3.zero;
+                    if (distanceVector.magnitude > maxDistanceKill) KillPlanet();
+                }
             }
         }
         float t4 = Time.realtimeSinceStartup;
         gravitationalForce *= simulationSpace.gravitationalConstant * simulationSpace.gravitationMultiplier;
         float t5 = Time.realtimeSinceStartup;
         simulationSpace.timeSpentCalculatingForceVectors += t5 - t4;
+    }
+
+    private void KillIfTooFar()
+    {
+        foreach (GravitationalObject gravitationalObject in simulationSpace.gravitationalObjectList)
+        {
+            if (gravitationalObject != this && gravitationalObject.name == "Sun")
+            {
+                Vector3 distanceVector = gravitationalObject.GetDistanceVector(position);
+                if (distanceVector.magnitude > maxDistanceKill) KillPlanet();
+            }
+        }
     }
 
     public float GetMass()
@@ -438,20 +469,20 @@ public class GravitationalObject : UdonSharpBehaviour
         if (collisionMomentum.magnitude >= planetMomentum.magnitude)
         {
             collisionGravObject.AddMomentum(this);
-            killPlanet();
+            KillPlanet();
             collisionGravObject.planetCollided = true;
             planetCollided = true;
         }
         else if (collisionMomentum.magnitude < planetMomentum.magnitude)
         {
             AddMomentum(collisionGravObject);
-            collisionGravObject.killPlanet();
+            collisionGravObject.KillPlanet();
             collisionGravObject.planetCollided = true;
             planetCollided = true;
         }
     }
 
-    public void killPlanet()
+    public void KillPlanet()
     {
         //Networking.Destroy(gameObject);
         //Destroy(gameObject);

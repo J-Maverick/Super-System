@@ -14,9 +14,9 @@ public class StationController : UdonSharpBehaviour
     public Transform stationPos;
     public Origin origin = null;
     public Transform currentRoom = null;
-    [UdonSynced] public int currentRoomID;
+    [UdonSynced] public int currentRoomID = 0;
 
-    private VRCPlayerApi _usingPlayer;
+    private VRCPlayerApi _usingPlayer = null;
     private float nextTime = 0f;
     public float intervalTime = 3f;
 
@@ -56,6 +56,15 @@ public class StationController : UdonSharpBehaviour
             _usingPlayer = Networking.GetOwner(gameObject);
         }
         RequestSerialization();
+    }
+
+    public override void OnPlayerLeft(VRCPlayerApi player)
+    {
+        if (_usingPlayer == player)
+        {
+            _usingPlayer = null;
+            origin.ReturnStation(gameObject);
+        }
     }
 
     public override void OnOwnershipTransferred(VRCPlayerApi player)
@@ -198,5 +207,10 @@ public class StationController : UdonSharpBehaviour
     public override void OnPlayerRespawn(VRCPlayerApi player)
     {
         if (player.isLocal) RequestSerialization();
+    }
+
+    public VRCPlayerApi GetUser()
+    {
+        return _usingPlayer;
     }
 }

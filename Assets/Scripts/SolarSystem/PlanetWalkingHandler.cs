@@ -48,7 +48,7 @@ public class PlanetWalkingHandler : UdonSharpBehaviour
     public void Update()
     {
         CheckChildren();
-        SpewPlayerData();
+        //SpewPlayerData();
         RespawnFastGBJIdiotSpaghettiBabies();
     }
 
@@ -56,6 +56,7 @@ public class PlanetWalkingHandler : UdonSharpBehaviour
     {
         planetWalkingTarget = planetFollower;
         planetTransition = true;
+        origin.Initialize();
     }
 
     public void DisablePlanetWalk()

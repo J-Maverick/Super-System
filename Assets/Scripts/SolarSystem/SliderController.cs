@@ -84,6 +84,7 @@ public class SliderController : UdonSharpBehaviour
 
     private void GetOwnership(GameObject objectToOwn)
     {
+        simulationSpaceTarget.Sync();
         if (!Networking.IsOwner(objectToOwn) && !deserializing)
         {
             Networking.SetOwner(localPlayer, objectToOwn);

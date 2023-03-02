@@ -31,7 +31,7 @@ public class GravitationalObject : UdonSharpBehaviour
 
     public float syncDistance = 2f;
 
-    public Vector3 deathPosition = new Vector3(0, -10000000, 0);
+    public Vector3 deathPosition = new Vector3(0, -3000, 0);
 
     public bool moveable = true;
     public bool staticPosition = false;
@@ -132,7 +132,7 @@ public class GravitationalObject : UdonSharpBehaviour
 
             if (instantiated && !follower)
             {
-                if (!physicsActive && isOwner)
+                if (!physicsActive && isOwner && !planetIsKill)
                 {
                     GrabOverride();
                     KillIfTooFar();
@@ -233,6 +233,7 @@ public class GravitationalObject : UdonSharpBehaviour
         {
             SpewData();
         }
+        Debug.LogFormat("{0}: Triggering Sync.", name);
         simulationSpace.Sync();
         RequestSerialization();
     }
@@ -491,6 +492,11 @@ public class GravitationalObject : UdonSharpBehaviour
         DisableTrail();
         physicsActive = false;
         planetIsKill = true;
+        if (isOwner)
+        {
+            Debug.LogFormat("{0}: Triggering Sync.", name);
+            simulationSpace.Sync();
+        }
         RequestSerialization();
     }
 

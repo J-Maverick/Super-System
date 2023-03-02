@@ -32,6 +32,7 @@ public class ButtonController : UdonSharpBehaviour
     
     public void SyncSolarSystem()
     {
+        Debug.LogFormat("{0}: Triggering Sync.", name);
         target.Sync();
     }
 

@@ -19,6 +19,8 @@ public class StationController : UdonSharpBehaviour
     private VRCPlayerApi _usingPlayer = null;
     private float nextTime = 0f;
     public float intervalTime = 3f;
+    private int nJoinSyncs = 10;
+    public int joinSyncCounter = 0;
 
     public void _EnterStation(Transform room)
     {
@@ -55,6 +57,7 @@ public class StationController : UdonSharpBehaviour
         {
             _usingPlayer = Networking.GetOwner(gameObject);
         }
+        joinSyncCounter = 0;
         RequestSerialization();
     }
 
@@ -118,6 +121,12 @@ public class StationController : UdonSharpBehaviour
 
     public override void PostLateUpdate()
     {
+        if (_usingPlayer != null && _usingPlayer.isLocal && joinSyncCounter < nJoinSyncs && Time.realtimeSinceStartup > nextTime)
+        {
+            RequestSerialization();
+            joinSyncCounter++;
+        }
+
         if (gameObject.activeSelf)
         {
             if (origin != null)

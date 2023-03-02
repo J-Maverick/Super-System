@@ -1614,7 +1614,7 @@ GameObject:
   - component: {fileID: 176823021}
   - component: {fileID: 176823020}
   m_Layer: 22
-  m_Name: Planet 3
+  m_Name: Stendari
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7710,7 +7710,7 @@ GameObject:
   - component: {fileID: 335044175}
   - component: {fileID: 335044174}
   m_Layer: 22
-  m_Name: Planet 0
+  m_Name: Ukko
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14168,7 +14168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Planet 5
+  m_text: Sahkio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19054,9 +19054,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Planet 2
-
-'
+  m_text: Lohkare
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19529,7 +19527,7 @@ GameObject:
   - component: {fileID: 566199343}
   - component: {fileID: 1570650577}
   m_Layer: 13
-  m_Name: Planet
+  m_Name: Ukko
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19572,7 +19570,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &566199340
 MeshFilter:
@@ -19681,7 +19679,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 0
+  InteractionText: Ukko
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -19727,7 +19725,7 @@ GameObject:
   - component: {fileID: 578460481}
   - component: {fileID: 24710276}
   m_Layer: 13
-  m_Name: Planet (4)
+  m_Name: Toveri
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19786,7 +19784,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &578460479
 MeshFilter:
@@ -19879,7 +19877,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 4
+  InteractionText: Toveri
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -20353,7 +20351,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Planet 4
+  m_text: Stendari
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -31736,9 +31734,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Planet 6
-
-'
+  m_text: Jaatio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -32834,7 +32830,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 974679365}
   planetWalkingHandler: {fileID: 1429133560}
-  PlanetFollowerTarget: {fileID: 982603307}
+  PlanetFollowerTarget: {fileID: 1442767382}
 --- !u!114 &974679367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33012,7 +33008,7 @@ GameObject:
   - component: {fileID: 982603307}
   - component: {fileID: 982603306}
   m_Layer: 22
-  m_Name: Planet 5
+  m_Name: Lohkare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33406,12 +33402,14 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 46d53eaa4a706ad4688e2f202be83179, type: 2}
   - {fileID: 2100000, guid: 8c7319c7ea3fd4e7a8a3f29d2f5a63a0, type: 2}
   - {fileID: 2100000, guid: 0f5eb2c3e65ec1e42802ccaed880f12d, type: 2}
-  - {fileID: 2100000, guid: 4e3e2c670745e3c4695eb089ff76a4b1, type: 2}
-  - {fileID: 2100000, guid: 5266ff413f7757a40acbcb2c86d379e9, type: 2}
-  - {fileID: 2100000, guid: 078f9d24e4b43374fac8de3dd32f9750, type: 2}
-  - {fileID: 2100000, guid: 0a25369d717c09742a4145c2d15b2857, type: 2}
-  - {fileID: 2100000, guid: 208c969547ae9df4691740cc1554fd6e, type: 2}
-  - {fileID: 2100000, guid: 0784bb4a5bd65034da0c0bd254105ff6, type: 2}
+  - {fileID: 2100000, guid: 7e26a601c0092384a8b5ca001994020a, type: 2}
+  - {fileID: 2100000, guid: 12e4d5459b18eb349a5af05c0d0fcf22, type: 2}
+  - {fileID: 2100000, guid: d6637b62465b2414f825d70784af639b, type: 2}
+  - {fileID: 2100000, guid: 182612c55aa841f4ab16b37a562fade9, type: 2}
+  - {fileID: 2100000, guid: 0ca1dd218a3413d49bee6fe3c8c72137, type: 2}
+  - {fileID: 2100000, guid: 7ab5c09eb0794bf438f065a25fe154ca, type: 2}
+  - {fileID: 2100000, guid: 3adcea4ee8bd6f54b9d549bbfba51b50, type: 2}
+  - {fileID: 2100000, guid: 9c690dadd14901e4cb42028259ae51db, type: 2}
   - {fileID: 2100000, guid: ef3b3fb8cd6b80b4880861a0404df1ec, type: 2}
   - {fileID: 2100000, guid: ad2c7ef884c9e4d9b82bdecd59120844, type: 2}
   - {fileID: 2100000, guid: 6345f570974e34fdda2940ee4a7a79bc, type: 2}
@@ -35016,7 +35014,7 @@ GameObject:
   - component: {fileID: 1207675650}
   - component: {fileID: 674848115}
   m_Layer: 13
-  m_Name: Planet (1)
+  m_Name: Lammas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35075,7 +35073,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1207675648
 MeshFilter:
@@ -35168,7 +35166,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 1
+  InteractionText: Lammas
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -35696,7 +35694,7 @@ GameObject:
   - component: {fileID: 1249339313}
   - component: {fileID: 768658823}
   m_Layer: 13
-  m_Name: Planet (2)
+  m_Name: Lukki
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35755,7 +35753,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1249339311
 MeshFilter:
@@ -35848,7 +35846,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 2
+  InteractionText: Lukki
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -36629,7 +36627,7 @@ GameObject:
   - component: {fileID: 1306935242}
   - component: {fileID: 1306935241}
   m_Layer: 22
-  m_Name: Planet 4
+  m_Name: Toveri
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36789,7 +36787,7 @@ GameObject:
   - component: {fileID: 1314299925}
   - component: {fileID: 1201716441}
   m_Layer: 13
-  m_Name: Planet (3)
+  m_Name: Stendari
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36848,7 +36846,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1314299923
 MeshFilter:
@@ -36941,7 +36939,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 3
+  InteractionText: Stendari
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -37063,7 +37061,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1333057303}
   planetWalkingHandler: {fileID: 1429133560}
-  PlanetFollowerTarget: {fileID: 1306935242}
+  PlanetFollowerTarget: {fileID: 176823021}
 --- !u!114 &1333057305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37362,7 +37360,7 @@ GameObject:
   - component: {fileID: 1337932691}
   - component: {fileID: 1337932690}
   m_Layer: 22
-  m_Name: Planet 1
+  m_Name: Lammas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43401,7 +43399,7 @@ GameObject:
   - component: {fileID: 1442767382}
   - component: {fileID: 1442767381}
   m_Layer: 22
-  m_Name: Planet 7
+  m_Name: Sahkio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44137,9 +44135,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Planet 3
-
-'
+  m_text: Lukki
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -44405,7 +44401,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 1513913035}
   planetWalkingHandler: {fileID: 1429133560}
-  PlanetFollowerTarget: {fileID: 2106943302}
+  PlanetFollowerTarget: {fileID: 982603307}
 --- !u!114 &1513913037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44736,9 +44732,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Planet 7
-
-'
+  m_text: Toveri
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -44832,7 +44826,7 @@ GameObject:
   - component: {fileID: 1590198739}
   - component: {fileID: 1590198738}
   m_Layer: 13
-  m_Name: Planet (6)
+  m_Name: Jaatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44892,7 +44886,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 6
+  InteractionText: Jaatio
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -45022,7 +45016,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1590198745
 MeshFilter:
@@ -45879,7 +45873,7 @@ GameObject:
   - component: {fileID: 1695158546}
   - component: {fileID: 1695158545}
   m_Layer: 13
-  m_Name: Planet (7)
+  m_Name: Sahkio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45939,7 +45933,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 7
+  InteractionText: Sahkio
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -46069,7 +46063,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1695158552
 MeshFilter:
@@ -46272,7 +46266,7 @@ GameObject:
   - component: {fileID: 1772984275}
   - component: {fileID: 1772984270}
   m_Layer: 0
-  m_Name: Sun
+  m_Name: Aurinko (Sun)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46611,9 +46605,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Planet 1
-
-'
+  m_text: Lammas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -47029,9 +47021,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Planet 0
-
-'
+  m_text: Ukko
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -47318,7 +47308,7 @@ GameObject:
   - component: {fileID: 1875183827}
   - component: {fileID: 1875183826}
   m_Layer: 22
-  m_Name: Planet 6
+  m_Name: Jaatio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52985,7 +52975,7 @@ GameObject:
   - component: {fileID: 1974408673}
   - component: {fileID: 295784155}
   m_Layer: 13
-  m_Name: Planet (5)
+  m_Name: Lohkare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53044,7 +53034,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1974408671
 MeshFilter:
@@ -53137,7 +53127,7 @@ MonoBehaviour:
   allowManipulationWhenEquipped: 1
   orientation: 0
   AutoHold: 0
-  InteractionText: Planet 5
+  InteractionText: Lohkare
   UseText: 
   useEventBroadcastType: 0
   UseDownEventName: 
@@ -53190,7 +53180,7 @@ GameObject:
   - component: {fileID: 1985740477}
   - component: {fileID: 1985740478}
   m_Layer: 22
-  m_Name: Sun
+  m_Name: Aurinko (Sun)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53713,7 +53703,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 2014768399}
   planetWalkingHandler: {fileID: 1429133560}
-  PlanetFollowerTarget: {fileID: 176823021}
+  PlanetFollowerTarget: {fileID: 2106943302}
 --- !u!114 &2014768401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54531,7 +54521,7 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 2091370799}
   planetWalkingHandler: {fileID: 1429133560}
-  PlanetFollowerTarget: {fileID: 1442767382}
+  PlanetFollowerTarget: {fileID: 1306935242}
 --- !u!114 &2091370801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54772,7 +54762,7 @@ GameObject:
   - component: {fileID: 2106943302}
   - component: {fileID: 2106943301}
   m_Layer: 22
-  m_Name: Planet 2
+  m_Name: Lukki
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54971,7 +54961,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sun
+  m_text: 'Aurinko
+
+    (Sun)
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -37,6 +37,11 @@ public class SimulationSpace : UdonSharpBehaviour
     public float timeSpentCalculatingDistanceVectors = 0f;
     public float timeSpentCalculatingForceVectors = 0f;
     public float timeSpentCalculatingVertexColors = 0f;
+    public float timeSpentCheckingChildren = 0f;
+
+    public float forceUpdateDelay = 0.1f;
+    private float forceUpdateTimer = 0f;
+    private float forceUpdateNextTime = 0f;
 
     public float throwReductionFactor = 0.2f;
 
@@ -53,13 +58,6 @@ public class SimulationSpace : UdonSharpBehaviour
     public bool planetTransition = false;
 
     public Origin origin;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        fixedDeltaTime = 1f / nSimsPerSecond;
-        Time.fixedDeltaTime = fixedDeltaTime;
-    }
 
     public void ToggleAutoSync()
     {
@@ -119,7 +117,9 @@ public class SimulationSpace : UdonSharpBehaviour
 
     void RunPhysics()
     {
+        float t1 = Time.realtimeSinceStartup;
         CheckChildren();
+        timeSpentCheckingChildren += Time.realtimeSinceStartup - t1;
         float executionTime = RunSimulationStep();
         //Debug.LogFormat("Physics run in {0}s", executionTime);
         nSteps += 1;
@@ -131,14 +131,27 @@ public class SimulationSpace : UdonSharpBehaviour
         timeSpentCalculatingDistanceVectors = 0f;
         timeSpentCalculatingForceVectors = 0f;
         timeSpentCalculatingVertexColors = 0f;
+        timeSpentCheckingChildren = 0f;
+
+        nSteps = 0;
+        totalSimTime = 0f;
+        logTimer = 0f;
     }
 
     public float RunSimulationStep()
     {
         float t1 = Time.realtimeSinceStartup;
+        bool runForces = false;
+
+        if (forceUpdateTimer >= forceUpdateNextTime)
+        {
+            runForces = true;
+            forceUpdateNextTime += forceUpdateDelay;
+        }
+
         foreach (GravitationalObject gravitationalObject in gravitationalObjectList)
         {
-            gravitationalObject.UpdatePhysics();
+            gravitationalObject.UpdatePhysics(calculateForces: runForces);
         }
 
         return Time.realtimeSinceStartup - t1;
@@ -151,21 +164,16 @@ public class SimulationSpace : UdonSharpBehaviour
         //    physicsRunning = true;
         //    StartCoroutine(RunPhysics());
         //}
-        
-        fixedDeltaTime = 1f / nSimsPerSecond;
 
         logTimer += Time.deltaTime;
         if (logTimer >= logTime)
         {
             float tS = 1000;
             string timeUnits = "ms";
-            //Debug.LogFormat("{1} sim steps run in {2:0.000}{0} | average sim time: {3:0.000}{0} | distance vector calculation time: {4:0.000}{0} | force vector calculation time {5:0.000}{0} | total vector calculation time {6:0.000}{0} | vertex color calculation time {7:0.000}{0}",
-            //    timeUnits, nSteps, totalSimTime * tS, (totalSimTime / nSteps) * tS, timeSpentCalculatingDistanceVectors * tS,
-            //    timeSpentCalculatingForceVectors * tS, (timeSpentCalculatingDistanceVectors + timeSpentCalculatingForceVectors) * tS, timeSpentCalculatingVertexColors * tS);
+            Debug.LogFormat("{1} sim steps run in {2:0.000}{0} | average sim time: {3:0.000}{0} | distance vector calculation time: {4:0.000}{0} | force vector calculation time {5:0.000}{0} | total vector calculation time {6:0.000}{0} | vertex color calculation time {7:0.000}{0} | check children time {8:0.000}{0}",
+                timeUnits, nSteps, totalSimTime * tS, (totalSimTime / nSteps) * tS, timeSpentCalculatingDistanceVectors * tS,
+                timeSpentCalculatingForceVectors * tS, (timeSpentCalculatingDistanceVectors + timeSpentCalculatingForceVectors) * tS, timeSpentCalculatingVertexColors * tS, timeSpentCheckingChildren * tS);
 
-            nSteps = 0;
-            totalSimTime = 0f;
-            logTimer = 0f;
             ResetTimeCounters();
         }
 
@@ -212,20 +220,12 @@ public class SimulationSpace : UdonSharpBehaviour
 
     private void FixedUpdate()
     {
-        if (Time.fixedDeltaTime != fixedDeltaTime)
-        {
-            Time.fixedDeltaTime = fixedDeltaTime;
-        }
+
+        forceUpdateTimer += Time.fixedDeltaTime;
+
         RunPhysics();
     }
-
-    //void FixedUpdate()
-    //{
-    //    float executionTime = GravitationalObject.RunSimulationStep();
-    //    Debug.LogFormat("Physics run in {0}s", executionTime);
-    //    GravitationalObject.SetTimeStep(timeStep);
-    //}
-
+    
     public void ResetPlanets()
     {
         foreach (GravitationalObject gravitationalObject in gravitationalObjectList)

@@ -270,7 +270,7 @@ public class GravitationalObject : UdonSharpBehaviour
     #region Physics Engine
 
     // TODO: Add radiation and temperature
-    public void UpdatePhysics()
+    public void UpdatePhysics(bool calculateForces=true)
     {
         if (!warmUp && instantiated && !follower)
         {
@@ -278,7 +278,7 @@ public class GravitationalObject : UdonSharpBehaviour
             {
                 if (physicsActive)
                 {
-                    SetGravitationalForce();
+                    if (calculateForces) SetGravitationalForce();
                     SetAcceleration();
                     SetVelocity();
                     SetRotation();

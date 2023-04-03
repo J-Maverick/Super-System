@@ -11,6 +11,7 @@ public class LocalSliderController : UdonSharpBehaviour
     public Text text;
     public Animator animatorTarget;
     public float sliderMultiplier = 1000f;
+    public SimulationSpace simulationSpaceTarget;
 
     public string sliderText = "x";
 
@@ -32,5 +33,10 @@ public class LocalSliderController : UdonSharpBehaviour
     public void UpdateSliderText()
     {
         text.text = string.Format("{0:F1}{1}", slider.value * sliderMultiplier, sliderText);
+    }
+
+    public void UpdateSimFidelity()
+    {
+        simulationSpaceTarget.forceUpdateDelay = sliderMultiplier - (sliderMultiplier * slider.value);
     }
 }

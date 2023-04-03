@@ -22,6 +22,9 @@ public class StationController : UdonSharpBehaviour
     private int nJoinSyncs = 10;
     public int joinSyncCounter = 0;
 
+    public float timeSpentLocal = 0f;
+    public float timeSpentRemote = 0f;
+
     public void _EnterStation(Transform room)
     {
         station.PlayerMobility = VRC.SDKBase.VRCStation.Mobility.Mobile;
@@ -155,12 +158,14 @@ public class StationController : UdonSharpBehaviour
             else _LogAtInterval(string.Format("{0}: Failed to update remote position -- Invalid currentRoom (ID: {1}) -- Owner: {3}[{4}]", name, currentRoom.name, currentRoomID, _usingPlayer.displayName, _usingPlayer.playerId));
 
             //if (_usingPlayer.GetVelocity().magnitude > 1000.0) _usingPlayer.SetVelocity(Vector3.zero);
+            _LogAtInterval(string.Format("{0}: Time spent calculating local pos: {1} | Time spent calculating remote pos: {2}", name, timeSpentLocal, timeSpentRemote));
         }
         _ResetLogInterval();
     }
 
     private void _UpdateLocal()
     {
+        float t1 = Time.realtimeSinceStartup;
         VRCPlayerApi player = Networking.LocalPlayer;
         Vector3 pos = player.GetPosition();
         Quaternion rot = player.GetRotation();
@@ -171,10 +176,13 @@ public class StationController : UdonSharpBehaviour
         Vector3 systemPos = matrix.MultiplyPoint(pos);
         Quaternion systemRot = matrix.rotation * rot;
         syncTarget.SetPositionRotation(systemPos, systemRot);
+
+        timeSpentLocal += Time.realtimeSinceStartup - t1;
     }
 
     private void _UpdateRemote()
     {
+        float t1 = Time.realtimeSinceStartup;
         Vector3 pos = syncTarget.position;
         Quaternion rot = syncTarget.rotation;
 
@@ -184,6 +192,8 @@ public class StationController : UdonSharpBehaviour
         Quaternion systemRot = matrix.rotation * rot;
 
         stationPos.SetPositionAndRotation(systemPos, systemRot);
+
+        timeSpentRemote += Time.realtimeSinceStartup - t1;
     }
 
     private void _LogAtInterval(string message)
@@ -199,6 +209,8 @@ public class StationController : UdonSharpBehaviour
         if (Time.realtimeSinceStartup > nextTime)
         {
             nextTime = Time.realtimeSinceStartup + intervalTime;
+            timeSpentLocal = 0f;
+            timeSpentRemote = 0f;
         }
     }
 

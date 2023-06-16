@@ -13,8 +13,7 @@ public class SimulationSpace : UdonSharpBehaviour
     public bool showTrails = true;
     [Range(1, 10000)]
     public int nSimsPerSecond = 100;
-    [Range(-0.1f, 0.1f)]
-    [UdonSynced] public float timeStep = 0.01f;
+    [UdonSynced] public float timeStep = 1f;
     public bool randomizeChildPositions = true;
     private bool physicsRunning = false;
     private int nSteps = 0;
@@ -46,7 +45,7 @@ public class SimulationSpace : UdonSharpBehaviour
     public float throwReductionFactor = 0.2f;
 
     private float warmUpTimer = 0f;
-    private float warmUpTime = 4.75f;
+    const float warmUpTime = 4.75f;
     private bool warmUp = true;
 
     public bool planetWalking = false;
@@ -58,6 +57,16 @@ public class SimulationSpace : UdonSharpBehaviour
     public bool planetTransition = false;
 
     public Origin origin;
+
+    private Vector3 distanceVector = Vector3.zero;
+    private Vector3 gravitationalForce = Vector3.zero;
+
+    const float maxDistanceStop = 4000f;
+    const float maxDistanceKill = 4500f;
+
+    private GravitationalObject outerGravitationalObject;
+    private GravitationalObject innerGravitationalObject;
+
 
     public void ToggleAutoSync()
     {
@@ -141,17 +150,16 @@ public class SimulationSpace : UdonSharpBehaviour
     public float RunSimulationStep()
     {
         float t1 = Time.realtimeSinceStartup;
-        bool runForces = false;
 
         if (forceUpdateTimer >= forceUpdateNextTime)
         {
-            runForces = true;
+            SetGravitationalForces();
             forceUpdateNextTime += forceUpdateDelay;
         }
 
         foreach (GravitationalObject gravitationalObject in gravitationalObjectList)
         {
-            gravitationalObject.UpdatePhysics(calculateForces: runForces);
+            gravitationalObject.UpdatePhysics();
         }
 
         return Time.realtimeSinceStartup - t1;
@@ -165,17 +173,17 @@ public class SimulationSpace : UdonSharpBehaviour
         //    StartCoroutine(RunPhysics());
         //}
 
-        logTimer += Time.deltaTime;
-        if (logTimer >= logTime)
-        {
-            float tS = 1000;
-            string timeUnits = "ms";
-            Debug.LogFormat("{1} sim steps run in {2:0.000}{0} | average sim time: {3:0.000}{0} | distance vector calculation time: {4:0.000}{0} | force vector calculation time {5:0.000}{0} | total vector calculation time {6:0.000}{0} | vertex color calculation time {7:0.000}{0} | check children time {8:0.000}{0}",
-                timeUnits, nSteps, totalSimTime * tS, (totalSimTime / nSteps) * tS, timeSpentCalculatingDistanceVectors * tS,
-                timeSpentCalculatingForceVectors * tS, (timeSpentCalculatingDistanceVectors + timeSpentCalculatingForceVectors) * tS, timeSpentCalculatingVertexColors * tS, timeSpentCheckingChildren * tS);
+        // logTimer += Time.deltaTime;
+        // if (logTimer >= logTime)
+        // {
+        //     float tS = 1000;
+        //     string timeUnits = "ms";
+        //     Debug.LogFormat("{1} sim steps run in {2:0.000}{0} | average sim time: {3:0.000}{0} | distance vector calculation time: {4:0.000}{0} | force vector calculation time {5:0.000}{0} | total vector calculation time {6:0.000}{0} | vertex color calculation time {7:0.000}{0} | check children time {8:0.000}{0}",
+        //         timeUnits, nSteps, totalSimTime * tS, (totalSimTime / nSteps) * tS, timeSpentCalculatingDistanceVectors * tS,
+        //         timeSpentCalculatingForceVectors * tS, (timeSpentCalculatingDistanceVectors + timeSpentCalculatingForceVectors) * tS, timeSpentCalculatingVertexColors * tS, timeSpentCheckingChildren * tS);
 
-            ResetTimeCounters();
-        }
+        //     ResetTimeCounters();
+        // }
 
         if (warmUp && warmUpTimer >= warmUpTime)
         {
@@ -319,4 +327,61 @@ public class SimulationSpace : UdonSharpBehaviour
         }
         gravitationalObjectList = tempList;
     }
+
+    private void ResetGravitationalForces() {
+        foreach (GravitationalObject gravitationalObject in gravitationalObjectList)
+        {
+            gravitationalObject.gravitationalForce = Vector3.zero;
+        }
+    }
+
+    private void SetGravitationalForces()
+    {
+        ResetGravitationalForces();
+        
+        float magnitude = 0f;
+        // float t1 = 0f;
+        // float t2 = 0f;
+        // float t3 = 0f;
+        // float t4 = 0f;
+        // float t5 = 0f;
+
+        for (int i=0; i < gravitationalObjectList.Length - 1; i++) {
+            outerGravitationalObject = gravitationalObjectList[i];
+            for (int j=i+1; j < gravitationalObjectList.Length; j++) {
+                innerGravitationalObject = gravitationalObjectList[j];
+                // t1 = Time.realtimeSinceStartup;
+                distanceVector = outerGravitationalObject.position - innerGravitationalObject.position;
+                magnitude = distanceVector.magnitude;
+                if (innerGravitationalObject.physicsActive && magnitude <= (outerGravitationalObject.transform.localScale.x + innerGravitationalObject.transform.localScale.x) / 2)
+                {
+                    Debug.LogFormat("{0}: Distance Vector Magnitude: {1} | Global Scale: {8} | Local Scale: {2} | Colliding Object Local Scale: {3} | Object Local Position: {4} | Colliding Object Local Position: {5} | Object Global Position: {6} | Colliding Object Global Position: {7}",
+                        outerGravitationalObject.name, magnitude, outerGravitationalObject.transform.localScale.x, innerGravitationalObject.transform.localScale.x, outerGravitationalObject.transform.localPosition, innerGravitationalObject.transform.localPosition, outerGravitationalObject.transform.localPosition, innerGravitationalObject.transform.localPosition, transform.localScale);
+                    outerGravitationalObject.PlanetCollision(innerGravitationalObject);
+                }
+                else
+                {
+                    // t2 = Time.realtimeSinceStartup;
+                    // timeSpentCalculatingDistanceVectors += t2 - t1;
+
+                    gravitationalForce = outerGravitationalObject.mass * innerGravitationalObject.mass * distanceVector / Mathf.Pow(magnitude, 3);
+                    outerGravitationalObject.gravitationalForce -= gravitationalForce;
+                    innerGravitationalObject.gravitationalForce += gravitationalForce;
+                    // t3 = Time.realtimeSinceStartup;
+                    // timeSpentCalculatingForceVectors += t3 - t2;
+                }
+                if (innerGravitationalObject.name == "Sun" && magnitude > maxDistanceStop)
+                {
+                    innerGravitationalObject.velocity = Vector3.zero;
+                    innerGravitationalObject.acceleration = Vector3.zero;
+                    if (magnitude > maxDistanceKill) outerGravitationalObject.KillPlanet();
+                }
+            }
+            // t4 = Time.realtimeSinceStartup;
+            outerGravitationalObject.gravitationalForce *= gravitationalConstant * gravitationMultiplier;
+            // t5 = Time.realtimeSinceStartup;
+            // timeSpentCalculatingForceVectors += t5 - t4;
+        }
+    }
+
 }

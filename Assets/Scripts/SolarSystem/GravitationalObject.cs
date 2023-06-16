@@ -26,12 +26,12 @@ public class GravitationalObject : UdonSharpBehaviour
     [UdonSynced] private float initialMass;
     [UdonSynced] private int masterID;
 
-    private float maxDistanceStop = 4000f;
-    private float maxDistanceKill = 4500f;
+    const float maxDistanceStop = 4000f;
+    const float maxDistanceKill = 4500f;
 
     public float syncDistance = 2f;
 
-    public Vector3 deathPosition = new Vector3(0, -3000, 0);
+    public Vector3 deathPosition;
 
     public bool moveable = true;
     public bool staticPosition = false;
@@ -39,7 +39,7 @@ public class GravitationalObject : UdonSharpBehaviour
     public bool randomizeStart = true;
     public bool hasRunPhysics = false;
 
-    private Vector3 gravitationalForce = Vector3.zero;
+    public Vector3 gravitationalForce = Vector3.zero;
     private Mesh mesh;
     private Vector3[] vertices;
     private Color[] colors;
@@ -59,10 +59,10 @@ public class GravitationalObject : UdonSharpBehaviour
 
     private float syncTime = 0f;
     private float syncTimer = 0f;
-    private float syncRate = 1f;
+    const float syncRate = 1f;
 
     private bool warmUp = true;
-    private float warmUpTime = .1f;
+    const float warmUpTime = .1f;
     private float warmUpTimer = 0f;
 
     private VRCPlayerApi localPlayer;
@@ -100,6 +100,8 @@ public class GravitationalObject : UdonSharpBehaviour
             masterID = Networking.LocalPlayer.playerId;
         }
 
+        deathPosition = new Vector3(Random.Range(5f,100f), Random.Range(-3000f,-3100f), Random.Range(5f,100f));
+        
         localPlayer = Networking.LocalPlayer;
         lastPosition = localPlayer.GetPosition();
 
@@ -270,7 +272,7 @@ public class GravitationalObject : UdonSharpBehaviour
     #region Physics Engine
 
     // TODO: Add radiation and temperature
-    public void UpdatePhysics(bool calculateForces=true)
+    public void UpdatePhysics()
     {
         if (!warmUp && instantiated && !follower)
         {
@@ -278,7 +280,7 @@ public class GravitationalObject : UdonSharpBehaviour
             {
                 if (physicsActive)
                 {
-                    if (calculateForces) SetGravitationalForce();
+                    // if (calculateForces) SetGravitationalForce();
                     SetAcceleration();
                     SetVelocity();
                     SetRotation();
@@ -355,14 +357,14 @@ public class GravitationalObject : UdonSharpBehaviour
     private void SetVelocity()
     {
         //Debug.LogFormat("{0} position: {1} | velocity: {2} | acceleration: {3} | force: {4}", this.name, position, velocity, acceleration, gravitationalForce);
-        velocity += acceleration * simulationSpace.timeStep;
+        velocity += acceleration * Time.fixedDeltaTime * simulationSpace.timeStep;
         //Debug.LogFormat("{0} updated velocity: {1}", this.name, velocity);
     }
 
     private void SetPosition()
     {
         //Debug.LogFormat("{0} position: {1} | velocity: {2} | acceleration: {3} | force: {4}", this.name, position, velocity, acceleration, gravitationalForce);
-        position += velocity * simulationSpace.timeStep;
+        position += velocity * Time.fixedDeltaTime * simulationSpace.timeStep;
         //Debug.LogFormat("{0} updated position: {1}", this.name, position);
     }
 
@@ -396,7 +398,7 @@ public class GravitationalObject : UdonSharpBehaviour
     private void SetRotation()
     {
         Quaternion rot = transform.localRotation;
-        transform.localRotation = rot * Quaternion.Euler(angularVelocity * simulationSpace.timeStep);
+        transform.localRotation = rot * Quaternion.Euler(angularVelocity * Time.fixedDeltaTime * simulationSpace.timeStep);
     }
 
     //TODO remove redundant force calculations by cumulating force in series -- possibly move to compute shader and just let the GPU figure it out
@@ -410,11 +412,12 @@ public class GravitationalObject : UdonSharpBehaviour
             if (gravitationalObject != this && gravitationalObject.instantiated)
             {
                 float t1 = Time.realtimeSinceStartup;
-                distanceVector = gravitationalObject.GetDistanceVector(position);
-                if (gravitationalObject.physicsActive && distanceVector.magnitude <= (transform.localScale.x + gravitationalObject.transform.localScale.x) / 2)
+                distanceVector = position - gravitationalObject.position;
+                float magnitude = distanceVector.magnitude;
+                if (gravitationalObject.physicsActive && magnitude <= (transform.localScale.x + gravitationalObject.transform.localScale.x) / 2)
                 {
                     Debug.LogFormat("{0}: Distance Vector Magnitude: {1} | Global Scale: {8} | Local Scale: {2} | Colliding Object Local Scale: {3} | Object Local Position: {4} | Colliding Object Local Position: {5} | Object Global Position: {6} | Colliding Object Global Position: {7}",
-                        this.name, distanceVector.magnitude, transform.localScale.x, gravitationalObject.transform.localScale.x, transform.localPosition, gravitationalObject.transform.localPosition, transform.localPosition, gravitationalObject.transform.localPosition, simulationSpace.transform.localScale);
+                        this.name, magnitude, transform.localScale.x, gravitationalObject.transform.localScale.x, transform.localPosition, gravitationalObject.transform.localPosition, transform.localPosition, gravitationalObject.transform.localPosition, simulationSpace.transform.localScale);
                     PlanetCollision(gravitationalObject);
                 }
                 else
@@ -422,15 +425,15 @@ public class GravitationalObject : UdonSharpBehaviour
                     float t2 = Time.realtimeSinceStartup;
                     simulationSpace.timeSpentCalculatingDistanceVectors += t2 - t1;
 
-                    gravitationalForce -= mass * gravitationalObject.GetMass() * distanceVector / Mathf.Pow(distanceVector.magnitude, 3);
+                    gravitationalForce -= mass * gravitationalObject.GetMass() * distanceVector / Mathf.Pow(magnitude, 3);
                     float t3 = Time.realtimeSinceStartup;
                     simulationSpace.timeSpentCalculatingForceVectors += t3 - t2;
                 }
-                if (gravitationalObject.name == "Sun" && distanceVector.magnitude > maxDistanceStop)
+                if (gravitationalObject.name == "Sun" && magnitude > maxDistanceStop)
                 {
                     velocity = Vector3.zero;
                     acceleration = Vector3.zero;
-                    if (distanceVector.magnitude > maxDistanceKill) KillPlanet();
+                    if (magnitude > maxDistanceKill) KillPlanet();
                 }
             }
         }
@@ -446,7 +449,7 @@ public class GravitationalObject : UdonSharpBehaviour
         {
             if (gravitationalObject != this && gravitationalObject.name == "Sun")
             {
-                Vector3 distanceVector = gravitationalObject.GetDistanceVector(position);
+                Vector3 distanceVector = position - gravitationalObject.position;
                 if (distanceVector.magnitude > maxDistanceKill) KillPlanet();
             }
         }

@@ -382,6 +382,8 @@ public class SimulationSpace : UdonSharpBehaviour
             // t5 = Time.realtimeSinceStartup;
             // timeSpentCalculatingForceVectors += t5 - t4;
         }
+
+        gravitationalObjectList[gravitationalObjectList.Length - 1].gravitationalForce *= gravitationalConstant * gravitationMultiplier;
     }
 
 }

@@ -8,16 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Sun
-  m_Shader: {fileID: 4800000, guid: b0df81db2a715e84985fc18d716406f3, type: 3}
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: POI_LIGHT_DATA_ADDITIVE_DIRECTIONAL_ENABLE POI_LIGHT_DATA_ADDITIVE_ENABLE
-    POI_VERTEXLIGHT_ON _EMISSION
+    POI_VERTEXLIGHT_ON _ALPHAPREMULTIPLY_ON _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
     OriginalShader: .poiyomi/Poiyomi 8.0/Poiyomi Toon
-    RenderType: Opaque
+    RenderType: Transparent
     _ColorAnimated: 1
     _CutoffAnimated: 1
   disabledShaderPasses: []

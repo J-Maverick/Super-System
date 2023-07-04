@@ -21,6 +21,7 @@ public class GravitationalObject : UdonSharpBehaviour
 
     [UdonSynced] private Vector3 initialPosition = Vector3.zero;
     [UdonSynced] private Vector3 initialVelocity = Vector3.zero;
+    private Quaternion initialRotation = Quaternion.identity;
     [UdonSynced] private Vector3 initialAngularVelocity = Vector3.zero;
     [UdonSynced] private Vector3 initialScale = Vector3.zero;
     [UdonSynced] private float initialMass;
@@ -302,6 +303,7 @@ public class GravitationalObject : UdonSharpBehaviour
         angularVelocity = initialAngularVelocity;
         mass = initialMass;
         transform.localScale = initialScale;
+        transform.localRotation = initialRotation;
         if (gameObject.HasComponent<Animator>())
         {
             EnableTrail();
@@ -365,6 +367,15 @@ public class GravitationalObject : UdonSharpBehaviour
     {
         //Debug.LogFormat("{0} position: {1} | velocity: {2} | acceleration: {3} | force: {4}", this.name, position, velocity, acceleration, gravitationalForce);
         position += velocity * Time.fixedDeltaTime * simulationSpace.timeStep;
+        if (float.IsNaN(position.x) || float.IsInfinity(position.x)) {
+            position.x = 1f;
+        }
+        if (float.IsNaN(position.y) || float.IsInfinity(position.y)) {
+            position.y = 1f;
+        }
+        if (float.IsNaN(position.z) || float.IsInfinity(position.z)) {
+            position.z = 1f;
+        }
         //Debug.LogFormat("{0} updated position: {1}", this.name, position);
     }
 
@@ -379,7 +390,7 @@ public class GravitationalObject : UdonSharpBehaviour
         previousFrameRotation = transform.localRotation;
     }
 
-    // TODO: Add function to set vertex color based on temperature rather than force applied --- this is gonna be rad
+    // TODO: Add function to set vertex color based on temperature rather than force applied --- this is gonna be rad .... it was, but udon is too slow to be cool :(
     private void SetForceColor()
     {
         float t1 = Time.realtimeSinceStartup;

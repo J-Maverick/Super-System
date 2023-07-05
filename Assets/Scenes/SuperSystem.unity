@@ -1688,7 +1688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176823016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: -83.38}
+  m_LocalPosition: {x: -0.04, y: 2.34, z: -83.38}
   m_LocalScale: {x: 1.52, y: 1.52, z: 1.52}
   m_Children:
   - {fileID: 1652674696}
@@ -8079,7 +8079,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 335044170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: -16.68}
+  m_LocalPosition: {x: -1.12, y: 0, z: -16.68}
   m_LocalScale: {x: 0.83, y: 0.83, z: 0.83}
   m_Children:
   - {fileID: 1131584357}
@@ -33757,7 +33757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982603302}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: -38.879997}
+  m_LocalPosition: {x: 1.4000192, y: 0, z: -38.879997}
   m_LocalScale: {x: 0.361, y: 0.361, z: 0.361}
   m_Children:
   - {fileID: 1862562557}
@@ -38675,7 +38675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337932686}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: -36.480003}
+  m_LocalPosition: {x: 1.4, y: 0, z: -36.480003}
   m_LocalScale: {x: 1.55, y: 1.55, z: 1.55}
   m_Children:
   - {fileID: 207948769}
@@ -44889,7 +44889,7 @@ MonoBehaviour:
   sun: {fileID: 1985740477}
   planetFollowerList: []
   planetWalking: 1
-  planetWalkingTarget: {fileID: 1337932691}
+  planetWalkingTarget: {fileID: 1985740477}
   platform: {fileID: 665676802}
   platformLocationTarget: {fileID: 1617041915}
   planetTransition: 0
@@ -44971,7 +44971,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442767379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.15, y: 3.02, z: -82.72}
+  m_LocalPosition: {x: -1.15, y: 5.3599854, z: -82.72}
   m_LocalScale: {x: 0.376, y: 0.376, z: 0.376}
   m_Children:
   - {fileID: 883978202}
@@ -49222,7 +49222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1875183824}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 2.15, z: -87.94}
+  m_LocalPosition: {x: -0.04, y: 4.4899855, z: -87.94}
   m_LocalScale: {x: 0.559, y: 0.559, z: 0.559}
   m_Children:
   - {fileID: 1049130353}
@@ -56857,7 +56857,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106943297}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.04, y: 0, z: -70.38}
+  m_LocalPosition: {x: -0.04, y: -2.27, z: -70.38}
   m_LocalScale: {x: 3.964, y: 3.964, z: 3.964}
   m_Children:
   - {fileID: 1902301829}
@@ -62086,8 +62086,8 @@ MonoBehaviour:
     SerializationNodes: []
   _udonSharpBackingUdonBehaviour: {fileID: 3590428093401778903}
   playerStation: {fileID: 0}
-  currentRoom: {fileID: 1337932687}
-  homeRoom: {fileID: 1337932687}
+  currentRoom: {fileID: 1985740476}
+  homeRoom: {fileID: 1985740476}
   stationAssigned: 0
   rooms: []
   objectPool: {fileID: 6666951784093614049}
